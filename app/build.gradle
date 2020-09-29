@@ -49,5 +49,6 @@ dependencies {
     api "androidx.multidex:multidex:2.0.1"
     kapt "com.google.dagger:dagger-android-processor:2.28"
     kapt "com.google.dagger:dagger-compiler:2.28"
+    kapt "androidx.room:room-compiler:2.2.5"
 
 }

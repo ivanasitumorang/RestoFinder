@@ -11,6 +11,7 @@ import dagger.Component
 interface HomeComponent : BaseComponent<HomeActivity> {
     @Component.Builder
     interface Builder {
+        fun homeModule(homeModule: HomeModule): Builder
         fun appComponent(component: AppComponent): Builder
         fun build(): HomeComponent
     }

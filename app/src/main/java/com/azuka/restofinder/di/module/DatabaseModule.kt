@@ -2,7 +2,7 @@ package com.azuka.restofinder.di.module
 
 import android.content.Context
 import androidx.room.Room
-import com.azuka.restaurantfinder.data.source.local.room.RestaurantDatabase
+import com.azuka.restofinder.data.local.room.RestaurantDatabase
 import com.azuka.restofinder.data.local.room.RestaurantDao
 import dagger.Module
 import dagger.Provides
@@ -15,11 +15,11 @@ import javax.inject.Singleton
  */
  
 @Module
-class DatabaseModule {
+class DatabaseModule(val context: Context) {
 
     @Singleton
     @Provides
-    fun provideDatabase(context: Context): RestaurantDatabase = Room.databaseBuilder(
+    fun provideDatabase(): RestaurantDatabase = Room.databaseBuilder(
         context,
         RestaurantDatabase::class.java,
         "RestaurantDatabase.db"

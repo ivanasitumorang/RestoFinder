@@ -56,6 +56,7 @@ class HomeActivity : BaseActivityVM<HomeViewModel>() {
     override fun createComponent(): Component {
         component = DaggerHomeComponent.builder()
             .appComponent(appComponent())
+            .homeModule(HomeModule())
             .build()
         return component
     }
