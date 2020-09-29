@@ -5,8 +5,17 @@ import com.azuka.base.di.module.CoreModule
 import com.azuka.base.di.module.NetworkModule
 import com.azuka.base.di.module.ViewModelModule
 import com.azuka.base.external.CoroutineContextProvider
+import com.azuka.restaurantfinder.data.source.local.room.RestaurantDatabase
+import com.azuka.restofinder.data.local.LocalDataSource
+import com.azuka.restofinder.data.local.room.RestaurantDao
+import com.azuka.restofinder.data.remote.RemoteDataSource
 import com.azuka.restofinder.di.module.AppModule
 import com.azuka.restofinder.di.module.AppNetworkModule
+import com.azuka.restofinder.di.module.DatabaseModule
+import com.azuka.restofinder.di.module.RepositoryModule
+import com.azuka.restofinder.domain.repository.AppRepository
+import com.azuka.restofinder.domain.usecase.HomeUseCase
+import com.azuka.restofinder.home.HomeModule
 import com.google.gson.Gson
 import dagger.Component
 import retrofit2.Retrofit
@@ -24,10 +33,12 @@ import javax.inject.Singleton
     modules = [
         ContextModule::class,
         AppModule::class,
+        DatabaseModule::class,
         CoreModule::class,
         NetworkModule::class,
         AppNetworkModule::class,
-        ViewModelModule::class
+        ViewModelModule::class,
+        RepositoryModule::class
     ]
 )
 interface AppComponent {
@@ -40,4 +51,9 @@ interface AppComponent {
     fun appCoroutineContextProvider(): CoroutineContextProvider
     fun networkProvider(): Retrofit
     fun gson(): Gson
+    fun restDao(): RestaurantDao
+    fun appRepository(): AppRepository
+    fun database(): RestaurantDatabase
+    fun local(): LocalDataSource
+    fun remote(): RemoteDataSource
 }

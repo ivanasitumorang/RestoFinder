@@ -1,4 +1,4 @@
-package com.azuka.restofinder.data.network
+package com.azuka.restofinder.data.remote.network
 
 import retrofit2.Response
 import retrofit2.http.GET

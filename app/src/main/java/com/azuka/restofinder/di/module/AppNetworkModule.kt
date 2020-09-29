@@ -1,6 +1,6 @@
 package com.azuka.restofinder.di.module
 
-import com.azuka.restofinder.data.network.AppNetworkService
+import com.azuka.restofinder.data.remote.network.AppNetworkService
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
