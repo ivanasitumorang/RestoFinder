@@ -1,7 +1,6 @@
 package com.azuka.restofinder.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.widget.SearchView
 import androidx.lifecycle.Observer
@@ -10,7 +9,6 @@ import com.azuka.base.di.component.Component
 import com.azuka.base.presentation.BaseActivityVM
 import com.azuka.restofinder.R
 import com.azuka.restofinder.appComponent
-import com.azuka.restofinder.data.Resource
 import com.azuka.restofinder.home.di.DaggerHomeComponent
 import com.azuka.restofinder.home.di.HomeComponent
 import com.azuka.restofinder.home.di.HomeModule
@@ -46,18 +44,7 @@ class HomeActivity : BaseActivityVM<HomeViewModel>() {
     private fun setupObserver() {
         viewModel.searchResult.observe(this, Observer { restaurants ->
             if (restaurants != null) {
-                when (restaurants) {
-                    is Resource.Loading -> {
-                        Log.i("Hasil", "loading")
-                    }
-                    is Resource.Success -> {
-                        Log.i("Hasil", "success ${restaurants.data}")
-                        adapter.submitList(restaurants.data)
-                    }
-                    is Resource.Error -> {
-                        Log.i("Hasil", "error")
-                    }
-                }
+                adapter.submitList(restaurants)
             }
         })
     }
@@ -68,7 +55,7 @@ class HomeActivity : BaseActivityVM<HomeViewModel>() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 if (!p0.isNullOrEmpty()) {
-                    setupObserver()
+                    viewModel.searchRestaurant(p0)
                     return true
                 }
                 return false

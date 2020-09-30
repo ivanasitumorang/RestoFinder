@@ -3,7 +3,6 @@ package com.azuka.restofinder.home.di
 import androidx.lifecycle.ViewModel
 import com.azuka.base.di.scope.FeatureScope
 import com.azuka.base.di.viewmodel.ViewModelKey
-import com.azuka.base.external.CoroutineContextProvider
 import com.azuka.restofinder.domain.repository.AppRepository
 import com.azuka.restofinder.domain.usecase.HomeUseCase
 import com.azuka.restofinder.domain.usecase.HomeUseCaseImpl
@@ -29,8 +28,7 @@ class HomeModule {
     @IntoMap
     @ViewModelKey(HomeViewModel::class)
     fun provideHomeViewModel(
-        homeUseCase: HomeUseCase,
-        coroutineContextProvider: CoroutineContextProvider
+        homeUseCase: HomeUseCase
     ): ViewModel =
-        HomeViewModel(homeUseCase, coroutineContextProvider)
+        HomeViewModel(homeUseCase)
 }
