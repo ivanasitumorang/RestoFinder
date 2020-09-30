@@ -1,4 +1,4 @@
-package com.azuka.restaurantfinder.data
+package com.azuka.restofinder.data
 
 
 /**

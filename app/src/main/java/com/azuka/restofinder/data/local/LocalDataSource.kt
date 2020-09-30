@@ -1,8 +1,11 @@
 package com.azuka.restofinder.data.local
 
+import com.azuka.base.external.CoroutineContextProvider
 import com.azuka.restofinder.data.local.entity.RestaurantEntity
 import com.azuka.restofinder.data.local.room.RestaurantDao
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 
 
 /**
@@ -13,11 +16,14 @@ import kotlinx.coroutines.flow.Flow
 interface LocalDataSource {
     fun getAllRestaurants(): Flow<List<RestaurantEntity>>
     fun getFavoriteRestaurants(): Flow<List<RestaurantEntity>>
-    fun insertRestaurants(restoList: List<RestaurantEntity>)
+    suspend fun insertRestaurants(restoList: List<RestaurantEntity>)
     fun setFavoriteRestaurant(resto: RestaurantEntity, isFavorite: Boolean)
 }
 
-class LocalDataSourceImpl(private val restaurantDao: RestaurantDao) : LocalDataSource {
+class LocalDataSourceImpl(
+    private val restaurantDao: RestaurantDao,
+    private val coroutineContextProvider: CoroutineContextProvider
+) : LocalDataSource {
 
     override fun getAllRestaurants(): Flow<List<RestaurantEntity>> =
         restaurantDao.getAllRestaurants()
@@ -25,8 +31,11 @@ class LocalDataSourceImpl(private val restaurantDao: RestaurantDao) : LocalDataS
     override fun getFavoriteRestaurants(): Flow<List<RestaurantEntity>> =
         restaurantDao.getFavoriteRestaurants()
 
-    override fun insertRestaurants(restoList: List<RestaurantEntity>) =
-        restaurantDao.insertRestaurant(restoList)
+    override suspend fun insertRestaurants(restoList: List<RestaurantEntity>) {
+        CoroutineScope(coroutineContextProvider.backgroundDispatcher()).launch {
+            restaurantDao.insertRestaurant(restoList)
+        }
+    }
 
     override fun setFavoriteRestaurant(resto: RestaurantEntity, isFavorite: Boolean) {
         resto.isFavorite = isFavorite

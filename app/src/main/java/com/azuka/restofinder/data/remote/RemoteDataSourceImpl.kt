@@ -2,8 +2,8 @@ package com.azuka.restofinder.data.remote
 
 import android.util.Log
 import com.azuka.restofinder.data.remote.network.ApiResponse
-import com.azuka.restaurantfinder.data.source.remote.response.RestaurantResponse
-import com.azuka.restaurantfinder.data.source.remote.response.SearchResponse
+import com.azuka.restofinder.data.remote.response.RestaurantResponse
+import com.azuka.restofinder.data.remote.response.SearchResponse
 import com.azuka.restofinder.data.remote.network.AppNetworkService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -28,18 +28,21 @@ class RemoteDataSourceImpl(private val networkService: AppNetworkService) : Remo
                 val response = networkService.searchRestaurant(
                     userKey = "1adeb00ef4fefb9a09daf95048515fac",
                     query = "beer"
-                )
-                val responseBody = response.body()
-                if (responseBody is SearchResponse) {
-                    val dataArray = responseBody.restaurants
-                    if (dataArray.isNotEmpty()) {
+                ).apply {
+                    if (isSuccessful) {
+                        val responseBody = body() as SearchResponse
                         emit(ApiResponse.Success(responseBody.restaurants))
                     } else {
                         emit(ApiResponse.Empty)
                     }
-                } else {
-                    emit(ApiResponse.Empty)
                 }
+//                val responseBody = response.body() as? SearchResponse
+//                val dataArray = responseBody?.restaurants
+//                if (!dataArray.isNullOrEmpty()) {
+//                    emit(ApiResponse.Success(responseBody.restaurants))
+//                } else {
+//                    emit(ApiResponse.Empty)
+//                }
 
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))

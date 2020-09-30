@@ -1,6 +1,6 @@
 package com.azuka.restofinder.utils
 
-import com.azuka.restaurantfinder.data.source.remote.response.RestaurantResponse
+import com.azuka.restofinder.data.remote.response.RestaurantResponse
 import com.azuka.restofinder.data.local.entity.RestaurantEntity
 import com.azuka.restofinder.domain.model.Restaurant
 
@@ -30,8 +30,8 @@ object DataMapper {
         val restaurantList = ArrayList<RestaurantEntity>()
         input.map {
             val resto = RestaurantEntity(
-                id = it.id,
-                name = it.name,
+                id = it.restaurant.id,
+                name = it.restaurant.name,
                 isFavorite = false
             )
             restaurantList.add(resto)

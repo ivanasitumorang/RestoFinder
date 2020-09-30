@@ -1,4 +1,4 @@
-package com.azuka.restaurantfinder.data
+package com.azuka.restofinder.data
 
 import com.azuka.restofinder.data.remote.network.ApiResponse
 import kotlinx.coroutines.flow.*

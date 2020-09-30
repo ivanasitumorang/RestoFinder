@@ -1,11 +1,9 @@
 package com.azuka.restofinder.data
 
-import com.azuka.restaurantfinder.data.NetworkBoundResource
-import com.azuka.restaurantfinder.data.Resource
 import com.azuka.restofinder.data.local.LocalDataSource
 import com.azuka.restofinder.data.remote.RemoteDataSource
 import com.azuka.restofinder.data.remote.network.ApiResponse
-import com.azuka.restaurantfinder.data.source.remote.response.RestaurantResponse
+import com.azuka.restofinder.data.remote.response.RestaurantResponse
 import com.azuka.restofinder.domain.model.Restaurant
 import com.azuka.restofinder.domain.repository.AppRepository
 import com.azuka.restofinder.utils.DataMapper

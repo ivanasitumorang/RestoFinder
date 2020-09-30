@@ -15,7 +15,7 @@ import androidx.room.PrimaryKey
 data class RestaurantEntity(
     @PrimaryKey
     @NonNull
-    @ColumnInfo(name = "restoId")
+    @ColumnInfo(name = "id")
     var id: String,
 
     @ColumnInfo(name = "name")

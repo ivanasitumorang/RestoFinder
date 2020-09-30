@@ -1,5 +1,6 @@
-package com.azuka.restaurantfinder.data.source.remote.response
+package com.azuka.restofinder.data.remote.response
 
+import com.azuka.restofinder.data.remote.response.RestaurantResponse
 import com.google.gson.annotations.SerializedName
 
 

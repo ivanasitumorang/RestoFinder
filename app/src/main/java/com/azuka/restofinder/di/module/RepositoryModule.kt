@@ -1,5 +1,6 @@
 package com.azuka.restofinder.di.module
 
+import com.azuka.base.external.CoroutineContextProvider
 import com.azuka.restofinder.data.remote.RemoteDataSource
 import com.azuka.restofinder.data.remote.RemoteDataSourceImpl
 import com.azuka.restofinder.data.AppRepositoryImpl
@@ -24,8 +25,11 @@ class RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideLocalDataSource(restaurantDao: RestaurantDao): LocalDataSource =
-        LocalDataSourceImpl(restaurantDao)
+    fun provideLocalDataSource(
+        restaurantDao: RestaurantDao,
+        coroutineContextProvider: CoroutineContextProvider
+    ): LocalDataSource =
+        LocalDataSourceImpl(restaurantDao, coroutineContextProvider)
 
     @Singleton
     @Provides

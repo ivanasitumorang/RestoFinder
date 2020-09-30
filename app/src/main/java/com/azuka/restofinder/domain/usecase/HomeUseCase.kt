@@ -1,6 +1,6 @@
 package com.azuka.restofinder.domain.usecase
 
-import com.azuka.restaurantfinder.data.Resource
+import com.azuka.restofinder.data.Resource
 import com.azuka.restofinder.domain.model.Restaurant
 import kotlinx.coroutines.flow.Flow
 
