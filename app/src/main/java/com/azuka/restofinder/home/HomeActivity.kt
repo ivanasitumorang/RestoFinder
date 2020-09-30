@@ -45,7 +45,7 @@ class HomeActivity : BaseActivityVM<HomeViewModel>() {
     }
 
     private fun setupObserver() {
-        viewModel.restaurants.observe(this, Observer { restaurants ->
+        viewModel.searchResult.observe(this, Observer { restaurants ->
             if (restaurants != null) {
                 when(restaurants) {
                     is Resource.Loading -> {

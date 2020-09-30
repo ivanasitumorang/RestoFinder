@@ -21,10 +21,10 @@ class AppRepositoryImpl (
     private val remoteData: RemoteDataSource
 ) : AppRepository {
 
-    override fun getAllRestaurants(): Flow<Resource<List<Restaurant>>> =
+    override fun searchRestaurant(query: String): Flow<Resource<List<Restaurant>>> =
         object : NetworkBoundResource<List<Restaurant>, List<RestaurantResponse>>() {
             override fun loadFromDB(): Flow<List<Restaurant>> {
-                return localData.getAllRestaurants().map {
+                return localData.searchRestaurant(query).map {
                     DataMapper.mapEntitiesToDomain(it)
                 }
             }
@@ -32,7 +32,7 @@ class AppRepositoryImpl (
             override fun shouldFetch(data: List<Restaurant>?): Boolean = data.isNullOrEmpty()
 
             override suspend fun createCall(): Flow<ApiResponse<List<RestaurantResponse>>> =
-                remoteData.getAllRestaurants()
+                remoteData.searchRestaurant(query)
 
             override suspend fun saveCallResult(data: List<RestaurantResponse>) {
                 val restaurantList = DataMapper.mapResponsesToEntities(data)

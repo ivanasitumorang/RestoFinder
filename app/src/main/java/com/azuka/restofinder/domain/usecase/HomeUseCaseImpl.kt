@@ -5,7 +5,7 @@ import com.azuka.restofinder.domain.repository.AppRepository
 
 class HomeUseCaseImpl (private val repository: AppRepository) : HomeUseCase {
 
-    override fun getAllRestaurants() = repository.getAllRestaurants()
+    override fun searchRestaurant(query: String) = repository.searchRestaurant(query)
 
     override fun getFavoriteRestaurants() = repository.getFavoriteRestaurants()
 

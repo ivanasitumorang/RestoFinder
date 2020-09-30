@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
  */
 
 interface HomeUseCase {
-    fun getAllRestaurants(): Flow<Resource<List<Restaurant>>>
+    fun searchRestaurant(query: String): Flow<Resource<List<Restaurant>>>
     fun getFavoriteRestaurants(): Flow<List<Restaurant>>
     fun setFavoriteRestaurant(restaurant: Restaurant, isFavorite: Boolean)
 }
