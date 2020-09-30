@@ -2,22 +2,21 @@ package com.azuka.restofinder.home
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.azuka.base.di.component.Component
 import com.azuka.base.presentation.BaseActivityVM
-import com.azuka.restofinder.data.Resource
 import com.azuka.restofinder.R
 import com.azuka.restofinder.appComponent
+import com.azuka.restofinder.data.Resource
 import com.azuka.restofinder.home.di.DaggerHomeComponent
 import com.azuka.restofinder.home.di.HomeComponent
 import com.azuka.restofinder.home.di.HomeModule
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : BaseActivityVM<HomeViewModel>() {
-
-//    @Inject
-//    lateinit var viewModelFactory: ViewModelFactory
 
     private val viewModel: HomeViewModel by lazy {
         ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
@@ -47,7 +46,7 @@ class HomeActivity : BaseActivityVM<HomeViewModel>() {
     private fun setupObserver() {
         viewModel.searchResult.observe(this, Observer { restaurants ->
             if (restaurants != null) {
-                when(restaurants) {
+                when (restaurants) {
                     is Resource.Loading -> {
                         Log.i("Hasil", "loading")
                     }
@@ -61,6 +60,24 @@ class HomeActivity : BaseActivityVM<HomeViewModel>() {
                 }
             }
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_home, menu)
+        val searchView = menu?.findItem(R.id.menuSearch)?.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                if (!p0.isNullOrEmpty()) {
+                    setupObserver()
+                    return true
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean = false
+
+        })
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun createComponent(): Component {

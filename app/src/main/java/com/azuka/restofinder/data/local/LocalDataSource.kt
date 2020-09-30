@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
  */
 
 interface LocalDataSource {
-    fun searchRestaurant(query: String): Flow<List<RestaurantEntity>>
+    fun getSearchResultRestaurant(): Flow<List<RestaurantEntity>>
     fun getFavoriteRestaurants(): Flow<List<RestaurantEntity>>
     suspend fun insertRestaurants(restoList: List<RestaurantEntity>)
     fun setFavoriteRestaurant(resto: RestaurantEntity, isFavorite: Boolean)
@@ -25,14 +25,15 @@ class LocalDataSourceImpl(
     private val coroutineContextProvider: CoroutineContextProvider
 ) : LocalDataSource {
 
-    override fun searchRestaurant(query: String): Flow<List<RestaurantEntity>> =
-        restaurantDao.searchRestaurant(query)
+    override fun getSearchResultRestaurant(): Flow<List<RestaurantEntity>> =
+        restaurantDao.getSearchResultRestaurant()
 
     override fun getFavoriteRestaurants(): Flow<List<RestaurantEntity>> =
         restaurantDao.getFavoriteRestaurants()
 
     override suspend fun insertRestaurants(restoList: List<RestaurantEntity>) {
         CoroutineScope(coroutineContextProvider.backgroundDispatcher()).launch {
+            restaurantDao.clearRestaurants()
             restaurantDao.insertRestaurant(restoList)
         }
     }

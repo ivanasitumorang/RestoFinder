@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">RestoFinder</string>
+    <string name="app_name">Restaurant Finder</string>
+
+    <string name="menu_search">Cari</string>
 </resources>

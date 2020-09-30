@@ -24,12 +24,12 @@ class AppRepositoryImpl (
     override fun searchRestaurant(query: String): Flow<Resource<List<Restaurant>>> =
         object : NetworkBoundResource<List<Restaurant>, List<RestaurantResponse>>() {
             override fun loadFromDB(): Flow<List<Restaurant>> {
-                return localData.searchRestaurant(query).map {
+                return localData.getSearchResultRestaurant().map {
                     DataMapper.mapEntitiesToDomain(it)
                 }
             }
 
-            override fun shouldFetch(data: List<Restaurant>?): Boolean = data.isNullOrEmpty()
+            override fun shouldFetch(data: List<Restaurant>?): Boolean = true
 
             override suspend fun createCall(): Flow<ApiResponse<List<RestaurantResponse>>> =
                 remoteData.searchRestaurant(query)
