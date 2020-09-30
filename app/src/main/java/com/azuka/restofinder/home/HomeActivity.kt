@@ -35,10 +35,6 @@ class HomeActivity : BaseActivityVM<HomeViewModel>() {
 
     override fun getLayoutId() = R.layout.activity_home
 
-    override fun initDependencyInjection() {
-        component.inject(this)
-    }
-
     override fun onActivityReady(savedInstanceState: Bundle?) {
         setupUI()
         setupObserver()
@@ -107,6 +103,10 @@ class HomeActivity : BaseActivityVM<HomeViewModel>() {
             .homeModule(HomeModule())
             .build()
         return component
+    }
+
+    override fun initDependencyInjection() {
+        component.inject(this)
     }
 
     override fun getVM(): HomeViewModel? = viewModel
