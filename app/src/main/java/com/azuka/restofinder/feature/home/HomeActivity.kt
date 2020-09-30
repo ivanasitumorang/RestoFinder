@@ -1,4 +1,4 @@
-package com.azuka.restofinder.home
+package com.azuka.restofinder.feature.home
 
 import android.os.Bundle
 import android.view.Menu
@@ -10,9 +10,9 @@ import com.azuka.base.presentation.BaseActivityVM
 import com.azuka.base.presentation.widget.LoadingDialog
 import com.azuka.restofinder.R
 import com.azuka.restofinder.appComponent
-import com.azuka.restofinder.home.di.DaggerHomeComponent
-import com.azuka.restofinder.home.di.HomeComponent
-import com.azuka.restofinder.home.di.HomeModule
+import com.azuka.restofinder.feature.home.di.DaggerHomeComponent
+import com.azuka.restofinder.feature.home.di.HomeComponent
+import com.azuka.restofinder.feature.home.di.HomeModule
 import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
 

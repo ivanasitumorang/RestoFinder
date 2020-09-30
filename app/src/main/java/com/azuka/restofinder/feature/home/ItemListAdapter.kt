@@ -1,4 +1,4 @@
-package com.azuka.restofinder.home
+package com.azuka.restofinder.feature.home
 
 import android.view.LayoutInflater
 import android.view.View

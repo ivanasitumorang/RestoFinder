@@ -1,9 +1,9 @@
-package com.azuka.restofinder.home.di
+package com.azuka.restofinder.feature.home.di
 
 import com.azuka.base.di.component.BaseComponent
 import com.azuka.base.di.scope.FeatureScope
 import com.azuka.restofinder.di.AppComponent
-import com.azuka.restofinder.home.HomeActivity
+import com.azuka.restofinder.feature.home.HomeActivity
 import dagger.Component
 
  
