@@ -1,4 +1,4 @@
-package com.azuka.restofinder.home
+package com.azuka.restofinder.home.di
 
 import androidx.lifecycle.ViewModel
 import com.azuka.base.di.scope.FeatureScope
@@ -6,6 +6,7 @@ import com.azuka.base.di.viewmodel.ViewModelKey
 import com.azuka.restofinder.domain.repository.AppRepository
 import com.azuka.restofinder.domain.usecase.HomeUseCase
 import com.azuka.restofinder.domain.usecase.HomeUseCaseImpl
+import com.azuka.restofinder.home.HomeViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap

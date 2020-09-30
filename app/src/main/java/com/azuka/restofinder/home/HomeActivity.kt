@@ -9,6 +9,8 @@ import com.azuka.base.presentation.BaseActivityVM
 import com.azuka.restofinder.data.Resource
 import com.azuka.restofinder.R
 import com.azuka.restofinder.appComponent
+import com.azuka.restofinder.home.di.HomeComponent
+import com.azuka.restofinder.home.di.HomeModule
 
 class HomeActivity : BaseActivityVM<HomeViewModel>() {
 
