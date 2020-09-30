@@ -26,6 +26,8 @@ class HomeActivity : BaseActivityVM<HomeViewModel>() {
 
     private lateinit var component: HomeComponent
 
+    private lateinit var searchView: SearchView
+
     override fun getLayoutId() = R.layout.activity_home
 
     override fun initDependencyInjection() {
@@ -51,7 +53,7 @@ class HomeActivity : BaseActivityVM<HomeViewModel>() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_home, menu)
-        val searchView = menu?.findItem(R.id.menuSearch)?.actionView as SearchView
+        searchView = menu?.findItem(R.id.menuSearch)?.actionView as SearchView
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 if (!p0.isNullOrEmpty()) {
@@ -64,7 +66,23 @@ class HomeActivity : BaseActivityVM<HomeViewModel>() {
             override fun onQueryTextChange(p0: String?): Boolean = false
 
         })
+        searchView.setOnCloseListener {
+            clearSearchResult()
+            false
+        }
         return super.onCreateOptionsMenu(menu)
+    }
+
+    private fun clearSearchResult() {
+        adapter.submitList(emptyList())
+    }
+
+    override fun onBackPressed() {
+        if (!searchView.isIconified) {
+            searchView.onActionViewCollapsed()
+        } else {
+            super.onBackPressed()
+        }
     }
 
     override fun createComponent(): Component {
