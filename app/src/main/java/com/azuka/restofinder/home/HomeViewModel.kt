@@ -6,6 +6,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.azuka.base.external.CoroutineContextProvider
+import com.azuka.base.presentation.BaseViewModel
 import com.azuka.restofinder.data.Resource
 import com.azuka.restofinder.domain.model.Restaurant
 import com.azuka.restofinder.domain.usecase.HomeUseCase
@@ -19,24 +20,28 @@ import com.azuka.restofinder.domain.usecase.HomeUseCase
 
 class HomeViewModel(
     private val homeUseCase: HomeUseCase
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _searchResult = MediatorLiveData<List<Restaurant>>()
     val searchResult: LiveData<List<Restaurant>> = _searchResult
 
     fun searchRestaurant(query: String) {
         val searchRestaurantDataSource = homeUseCase.searchRestaurant(query).asLiveData()
+        _loadingHandler.value = true
         _searchResult.addSource(searchRestaurantDataSource) { resource ->
             when (resource) {
                 is Resource.Loading -> {
                     Log.i("Hasil", "loading")
+                    _loadingHandler.value = true
                 }
                 is Resource.Success -> {
                     Log.i("Hasil", "success ${resource.data}")
                     _searchResult.value = resource.data
+                    _loadingHandler.value = false
                 }
                 is Resource.Error -> {
                     Log.i("Hasil", "error")
+                    _loadingHandler.value = false
                 }
             }
         }

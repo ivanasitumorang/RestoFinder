@@ -1,5 +1,7 @@
 package com.azuka.base.presentation
 
+import android.os.Bundle
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.azuka.base.di.viewmodel.ViewModelFactory
 import javax.inject.Inject
@@ -16,4 +18,19 @@ abstract class BaseActivityVM <T : ViewModel> : BaseActivity() {
     lateinit var viewModelFactory: ViewModelFactory
 
     abstract fun getVM(): T?
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setupObserver(getVM() as? BaseViewModel)
+    }
+
+    private fun setupObserver(viewModel: BaseViewModel?) {
+        viewModel?.loadingHandler?.observe(this, Observer { loading ->
+            if (loading) showLoading()
+            else hideLoading()
+        })
+    }
+
+    protected open fun showLoading() {}
+    protected open fun hideLoading() {}
 }
