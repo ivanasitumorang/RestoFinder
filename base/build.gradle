@@ -60,4 +60,6 @@ dependencies {
     api "androidx.room:room-ktx:2.2.5"
     api "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
 
+    api "androidx.recyclerview:recyclerview:1.1.0"
+
 }

@@ -9,8 +9,10 @@ import com.azuka.base.presentation.BaseActivityVM
 import com.azuka.restofinder.data.Resource
 import com.azuka.restofinder.R
 import com.azuka.restofinder.appComponent
+import com.azuka.restofinder.home.di.DaggerHomeComponent
 import com.azuka.restofinder.home.di.HomeComponent
 import com.azuka.restofinder.home.di.HomeModule
+import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : BaseActivityVM<HomeViewModel>() {
 
@@ -19,6 +21,10 @@ class HomeActivity : BaseActivityVM<HomeViewModel>() {
 
     private val viewModel: HomeViewModel by lazy {
         ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
+    }
+
+    private val adapter: ItemListAdapter by lazy {
+        ItemListAdapter()
     }
 
     private lateinit var component: HomeComponent
@@ -30,7 +36,12 @@ class HomeActivity : BaseActivityVM<HomeViewModel>() {
     }
 
     override fun onActivityReady(savedInstanceState: Bundle?) {
+        setupUI()
         setupObserver()
+    }
+
+    private fun setupUI() {
+        rvItemList.adapter = adapter
     }
 
     private fun setupObserver() {
@@ -42,6 +53,7 @@ class HomeActivity : BaseActivityVM<HomeViewModel>() {
                     }
                     is Resource.Success -> {
                         Log.i("Hasil", "success ${restaurants.data}")
+                        adapter.submitList(restaurants.data)
                     }
                     is Resource.Error -> {
                         Log.i("Hasil", "error")
