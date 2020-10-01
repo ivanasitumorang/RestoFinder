@@ -1,4 +1,4 @@
-package com.azuka.restofinder.feature.home.di
+package com.azuka.restofinder.feature.di
 
 import com.azuka.base.di.component.BaseComponent
 import com.azuka.base.di.scope.FeatureScope

@@ -11,9 +11,10 @@ import com.azuka.base.presentation.widget.LoadingDialog
 import com.azuka.base.utils.goToScreen
 import com.azuka.restofinder.R
 import com.azuka.restofinder.appComponent
-import com.azuka.restofinder.feature.home.di.DaggerHomeComponent
-import com.azuka.restofinder.feature.home.di.HomeComponent
-import com.azuka.restofinder.feature.home.di.HomeModule
+import com.azuka.restofinder.feature.HomeViewModel
+import com.azuka.restofinder.feature.di.DaggerHomeComponent
+import com.azuka.restofinder.feature.di.HomeComponent
+import com.azuka.restofinder.feature.di.HomeModule
 import com.azuka.restofinder.utils.AppConstant
 import com.azuka.restofinder.utils.Screen
 import kotlinx.android.synthetic.main.activity_home.*
