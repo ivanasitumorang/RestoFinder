@@ -22,5 +22,6 @@ data class Restaurant(
     val featuredImage: String,
     val cuisines: String,
     val userRating: UserRating,
+    val isSearchResult: Boolean,
     val isFavorite: Boolean
 ) : Parcelable

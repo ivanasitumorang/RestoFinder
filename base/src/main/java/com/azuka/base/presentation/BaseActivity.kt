@@ -3,6 +3,8 @@ package com.azuka.base.presentation
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.azuka.base.di.component.ShareComponent
+import com.azuka.base.presentation.widget.LoadingDialog
+import javax.inject.Inject
 
 
 /**
@@ -11,6 +13,9 @@ import com.azuka.base.di.component.ShareComponent
  */
  
 abstract class BaseActivity : AppCompatActivity(), AbstractComponent {
+
+    @Inject
+    lateinit var loadingDialog: LoadingDialog
 
     abstract fun getLayoutId(): Int
 

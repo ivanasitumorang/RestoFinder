@@ -32,7 +32,8 @@ object RestaurantDataMapper : Mapper<RestaurantEntity, Restaurant, RestaurantRes
             currency = currency,
             averageCostForTwo = averageCostForTwo,
             isFavorite = isFavorite,
-            cuisines = cuisines
+            cuisines = cuisines,
+            isSearchResult = isSearchResult
         )
     }
 
@@ -54,7 +55,7 @@ object RestaurantDataMapper : Mapper<RestaurantEntity, Restaurant, RestaurantRes
                 )
             },
             name = name,
-            isSearchResult = false,
+            isSearchResult = isSearchResult,
             cuisines = cuisines
         )
     }

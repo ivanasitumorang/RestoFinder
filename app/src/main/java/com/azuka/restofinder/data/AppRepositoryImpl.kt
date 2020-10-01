@@ -47,6 +47,12 @@ class AppRepositoryImpl (
         }
     }
 
+    override fun getFavoriteRestaurantById(restaurantId: String): Flow<List<Restaurant>> {
+        return localData.getFavoriteRestaurantById(restaurantId).map {
+            RestaurantDataMapper.mapEntitiesToDomains(it)
+        }
+    }
+
     override fun setFavoriteRestaurant(restaurant: Restaurant, isFavorite: Boolean) {
         val restoEntity = RestaurantDataMapper.mapDomainToEntity(restaurant)
 //        appExecutor.diskIO().execute { localData.setFavoriteRestaurant(restoEntity, isFavorite) }

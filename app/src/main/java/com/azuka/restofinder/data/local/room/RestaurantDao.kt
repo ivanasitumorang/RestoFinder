@@ -13,18 +13,21 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface RestaurantDao {
 
-    @Query("SELECT * FROM restaurant")
+    @Query("SELECT * FROM restaurant WHERE isSearchResult = 1")
     fun getSearchResultRestaurant(): Flow<List<RestaurantEntity>>
 
     @Query("SELECT * FROM restaurant where isFavorite = 1")
     fun getFavoriteRestaurants(): Flow<List<RestaurantEntity>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertRestaurant(restaurantEntities: List<RestaurantEntity>)
 
     @Update
     fun updateFavoriteRestaurant(restaurantEntity: RestaurantEntity)
 
-    @Query("DELETE FROM restaurant")
+    @Query("DELETE FROM restaurant WHERE isFavorite = 0 AND isSearchResult = 1")
     fun clearRestaurants()
+
+    @Query("SELECT * FROM restaurant WHERE id = :restaurantId AND isFavorite = 1")
+    fun getFavoriteRestaurantById(restaurantId: String): Flow<List<RestaurantEntity>>
 }

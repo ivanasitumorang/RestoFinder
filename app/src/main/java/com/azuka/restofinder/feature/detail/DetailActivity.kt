@@ -1,7 +1,11 @@
 package com.azuka.restofinder.feature.detail
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.azuka.base.di.component.Component
 import com.azuka.base.presentation.BaseActivityVM
@@ -26,20 +30,30 @@ class DetailActivity : BaseActivityVM<HomeViewModel>() {
     }
 
     private lateinit var component: DetailComponent
+    private lateinit var btnFavorite: MenuItem
+
+    private var isRestaurantFavorite = false
 
     override fun getLayoutId(): Int = R.layout.activity_detail
 
-    override fun initDependencyInjection() {
-        component.inject(this)
-    }
-
     override fun onActivityReady(savedInstanceState: Bundle?) {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         if (restaurant == null) {
             Toast.makeText(this, "Restaurant Tidak Tersedia", Toast.LENGTH_SHORT).show()
         } else {
             setupUI()
             setupClickListener()
+            viewModel.checkIfFavoriteRestaurant(restaurant?.id)
         }
+    }
+
+    private fun observeFavorite() {
+        viewModel.isFavorite.observe(this, Observer { isFavorite ->
+            isRestaurantFavorite = isFavorite
+            if (::btnFavorite.isInitialized) {
+                setFavoriteIcon(isFavorite)
+            }
+        })
     }
 
     private fun setupClickListener() {
@@ -61,11 +75,53 @@ class DetailActivity : BaseActivityVM<HomeViewModel>() {
             tvRestaurantVotes.text = it.userRating.votes
             tvRestaurantCuisines.text = it.cuisines
             ratingBar.rating = it.userRating.rating.toFloat()
-            Picasso.get()
-                .load(it.featuredImage)
-                .fit()
-                .into(ivRestaurantImage)
+            if (it.featuredImage.isEmpty()) {
+                ivRestaurantImage.setImageResource(R.drawable.ic_no_image)
+            } else {
+                Picasso.get()
+                    .load(it.featuredImage)
+                    .fit()
+                    .error(R.drawable.ic_no_image)
+                    .into(ivRestaurantImage)
+            }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_detail, menu)
+        btnFavorite = menu?.findItem(R.id.menuFavorite) as MenuItem
+        observeFavorite()
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    private fun toggleFavoriteIcon() {
+        restaurant?.let {
+            if (isRestaurantFavorite) {
+                viewModel.removeFromFavorite(it)
+            } else {
+                viewModel.saveToFavorite(it)
+            }
+        }
+    }
+
+    private fun setFavoriteIcon(state: Boolean) {
+        if (state) {
+            btnFavorite.icon = ContextCompat.getDrawable(this, R.drawable.ic_love_full)
+        } else {
+            btnFavorite.icon = ContextCompat.getDrawable(this, R.drawable.ic_love_outline)
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.menuFavorite -> {
+            toggleFavoriteIcon()
+            true
+        }
+        android.R.id.home -> {
+            finish()
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
 
     override fun createComponent(): Component {
@@ -73,6 +129,10 @@ class DetailActivity : BaseActivityVM<HomeViewModel>() {
             .appComponent(appComponent())
             .build()
         return component
+    }
+
+    override fun initDependencyInjection() {
+        component.inject(this)
     }
 
     override fun getVM(): HomeViewModel? = viewModel

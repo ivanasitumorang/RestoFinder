@@ -31,6 +31,11 @@ abstract class BaseActivityVM <T : ViewModel> : BaseActivity() {
         })
     }
 
-    protected open fun showLoading() {}
-    protected open fun hideLoading() {}
+    protected open fun showLoading() {
+        loadingDialog.show(supportFragmentManager)
+    }
+
+    protected open fun hideLoading() {
+        loadingDialog.hide()
+    }
 }

@@ -17,6 +17,7 @@ interface LocalDataSource {
     fun getSearchResultRestaurant(): Flow<List<RestaurantEntity>>
     fun getFavoriteRestaurants(): Flow<List<RestaurantEntity>>
     suspend fun insertRestaurants(restoList: List<RestaurantEntity>)
+    fun getFavoriteRestaurantById(restaurantId: String): Flow<List<RestaurantEntity>>
     fun setFavoriteRestaurant(resto: RestaurantEntity, isFavorite: Boolean)
 }
 
@@ -37,6 +38,9 @@ class LocalDataSourceImpl(
             restaurantDao.insertRestaurant(restoList)
         }
     }
+
+    override fun getFavoriteRestaurantById(restaurantId: String): Flow<List<RestaurantEntity>> =
+        restaurantDao.getFavoriteRestaurantById(restaurantId)
 
     override fun setFavoriteRestaurant(resto: RestaurantEntity, isFavorite: Boolean) {
         resto.isFavorite = isFavorite

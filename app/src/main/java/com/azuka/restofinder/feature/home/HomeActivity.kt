@@ -7,23 +7,17 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.azuka.base.di.component.Component
 import com.azuka.base.presentation.BaseActivityVM
-import com.azuka.base.presentation.widget.LoadingDialog
 import com.azuka.base.utils.goToScreen
 import com.azuka.restofinder.R
 import com.azuka.restofinder.appComponent
 import com.azuka.restofinder.feature.HomeViewModel
-import com.azuka.restofinder.feature.home.di.HomeComponent
-import com.azuka.restofinder.feature.di.HomeModule
 import com.azuka.restofinder.feature.home.di.DaggerHomeComponent
+import com.azuka.restofinder.feature.home.di.HomeComponent
 import com.azuka.restofinder.utils.AppConstant
 import com.azuka.restofinder.utils.Screen
 import kotlinx.android.synthetic.main.activity_home.*
-import javax.inject.Inject
 
 class HomeActivity : BaseActivityVM<HomeViewModel>() {
-
-    @Inject
-    lateinit var loadingDialog: LoadingDialog
 
     private val viewModel: HomeViewModel by lazy {
         ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
@@ -94,16 +88,6 @@ class HomeActivity : BaseActivityVM<HomeViewModel>() {
         } else {
             super.onBackPressed()
         }
-    }
-
-    override fun showLoading() {
-        super.showLoading()
-        loadingDialog.show(supportFragmentManager)
-    }
-
-    override fun hideLoading() {
-        super.hideLoading()
-        loadingDialog.hide()
     }
 
     override fun createComponent(): Component {

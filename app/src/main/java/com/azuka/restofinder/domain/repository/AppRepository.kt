@@ -14,5 +14,6 @@ interface AppRepository {
 
     fun searchRestaurant(query: String): Flow<Resource<List<Restaurant>>>
     fun getFavoriteRestaurants(): Flow<List<Restaurant>>
+    fun getFavoriteRestaurantById(restaurantId: String): Flow<List<Restaurant>>
     fun setFavoriteRestaurant(restaurant: Restaurant, isFavorite: Boolean)
 }
