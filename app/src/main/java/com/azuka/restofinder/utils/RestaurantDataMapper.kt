@@ -50,7 +50,8 @@ object RestaurantDataMapper : Mapper<RestaurantEntity, Restaurant, RestaurantRes
                     rating = rating
                 )
             },
-            name = name
+            name = name,
+            isSearchResult = false
         )
     }
 
@@ -71,7 +72,8 @@ object RestaurantDataMapper : Mapper<RestaurantEntity, Restaurant, RestaurantRes
                         rating = rating
                     )
                 },
-                name = name
+                name = name,
+                isSearchResult = true
             )
         }
 }
