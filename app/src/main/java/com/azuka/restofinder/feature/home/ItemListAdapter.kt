@@ -20,10 +20,19 @@ import kotlinx.android.synthetic.main.item_restaurant_list.view.*
 class ItemListAdapter :
     ListAdapter<Restaurant, ItemListAdapter.ViewHolder>(ItemListDiffCallback()) {
 
+    private var clickListener: ((Restaurant) -> Unit)? = null
+
+    fun setOnItemClickListener(clickListener: ((Restaurant) -> Unit)) {
+        this.clickListener = clickListener
+    }
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(restaurant: Restaurant) {
-            itemView.tvItemName.text = restaurant.name
-            itemView.tvItemRating.text = "Rating : ${restaurant.userRating.rating}"
+        fun bind(restaurant: Restaurant, clickListener: ((Restaurant) -> Unit)?) {
+            itemView.apply {
+                tvItemName.text = restaurant.name
+                tvItemRating.text = "Rating : ${restaurant.userRating.rating}"
+                itemList.setOnClickListener { clickListener?.invoke(restaurant) }
+            }
         }
     }
 
@@ -35,7 +44,7 @@ class ItemListAdapter :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), clickListener)
     }
 }
 
