@@ -19,6 +19,8 @@ data class Restaurant(
     val currency: String,
     val averageCostForTwo: String,
     val priceRange: String,
+    val featuredImage: String,
+    val cuisines: String,
     val userRating: UserRating,
     val isFavorite: Boolean
 ) : Parcelable

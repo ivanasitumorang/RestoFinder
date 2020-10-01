@@ -12,8 +12,10 @@ data class RestaurantObjectResponse(
     val name: String,
     val url: String,
     val currency: String,
+    val cuisines: String,
     @SerializedName("average_cost_for_two") val averageCostForTwo: String,
     @SerializedName("price_range") val priceRange: String,
+    @SerializedName("featured_image") val featuredImage: String,
     @SerializedName("user_rating") val userRating: UserRatingResponse
 ) : BaseResponse
 

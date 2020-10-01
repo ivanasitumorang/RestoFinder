@@ -21,6 +21,8 @@ data class RestaurantEntity(
     val currency: String,
     val averageCostForTwo: String,
     val priceRange: String,
+    val featuredImage: String,
+    val cuisines: String,
     @Embedded
     val userRating: UserRatingEntity,
     var isFavorite: Boolean,

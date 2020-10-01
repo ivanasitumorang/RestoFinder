@@ -18,6 +18,7 @@ object RestaurantDataMapper : Mapper<RestaurantEntity, Restaurant, RestaurantRes
         Restaurant(
             id = id,
             name = name,
+            featuredImage = featuredImage,
             userRating = with(userRating) {
                 UserRating(
                     votes = votes,
@@ -30,7 +31,8 @@ object RestaurantDataMapper : Mapper<RestaurantEntity, Restaurant, RestaurantRes
             priceRange = priceRange,
             currency = currency,
             averageCostForTwo = averageCostForTwo,
-            isFavorite = isFavorite
+            isFavorite = isFavorite,
+            cuisines = cuisines
         )
     }
 
@@ -42,6 +44,7 @@ object RestaurantDataMapper : Mapper<RestaurantEntity, Restaurant, RestaurantRes
             currency = currency,
             priceRange = priceRange,
             url = url,
+            featuredImage = featuredImage,
             userRating = with(userRating) {
                 UserRatingEntity(
                     votes = votes,
@@ -51,7 +54,8 @@ object RestaurantDataMapper : Mapper<RestaurantEntity, Restaurant, RestaurantRes
                 )
             },
             name = name,
-            isSearchResult = false
+            isSearchResult = false,
+            cuisines = cuisines
         )
     }
 
@@ -60,6 +64,7 @@ object RestaurantDataMapper : Mapper<RestaurantEntity, Restaurant, RestaurantRes
             RestaurantEntity(
                 id = id,
                 isFavorite = false,
+                featuredImage = featuredImage,
                 averageCostForTwo = averageCostForTwo,
                 currency = currency,
                 priceRange = priceRange,
@@ -73,7 +78,8 @@ object RestaurantDataMapper : Mapper<RestaurantEntity, Restaurant, RestaurantRes
                     )
                 },
                 name = name,
-                isSearchResult = true
+                isSearchResult = true,
+                cuisines = cuisines
             )
         }
 }

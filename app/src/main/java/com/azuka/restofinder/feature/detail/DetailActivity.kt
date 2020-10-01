@@ -12,6 +12,8 @@ import com.azuka.restofinder.feature.HomeViewModel
 import com.azuka.restofinder.feature.detail.di.DaggerDetailComponent
 import com.azuka.restofinder.feature.detail.di.DetailComponent
 import com.azuka.restofinder.utils.AppConstant
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : BaseActivityVM<HomeViewModel>() {
 
@@ -32,8 +34,37 @@ class DetailActivity : BaseActivityVM<HomeViewModel>() {
     }
 
     override fun onActivityReady(savedInstanceState: Bundle?) {
+        if (restaurant == null) {
+            Toast.makeText(this, "Restaurant Tidak Tersedia", Toast.LENGTH_SHORT).show()
+        } else {
+            setupUI()
+            setupClickListener()
+        }
+    }
+
+    private fun setupClickListener() {
+        btnRestaurantToDetails.setOnClickListener {
+            Toast.makeText(
+                this,
+                "Go to ${restaurant?.url}",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun setupUI() {
         restaurant?.let {
-            Toast.makeText(this, it.name, Toast.LENGTH_SHORT).show()
+            tvRestaurantName.text = it.name
+            tvRestaurantPriceForTwo.text = it.averageCostForTwo
+            tvRestaurantPriceRange.text = it.priceRange
+            tvRestaurantRatingText.text = it.userRating.ratingText
+            tvRestaurantVotes.text = it.userRating.votes
+            tvRestaurantCuisines.text = it.cuisines
+            ratingBar.rating = it.userRating.rating.toFloat()
+            Picasso.get()
+                .load(it.featuredImage)
+                .fit()
+                .into(ivRestaurantImage)
         }
     }
 

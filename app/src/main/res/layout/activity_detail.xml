@@ -13,7 +13,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvRestaurantName"
+        app:layout_constraintTop_toBottomOf="@+id/tvRestaurantCuisines"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <TextView
@@ -87,4 +87,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvRestaurantCuisines"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Indonesian"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/tvRestaurantName"
+        app:layout_constraintTop_toBottomOf="@+id/tvRestaurantName" />
 </androidx.constraintlayout.widget.ConstraintLayout>
