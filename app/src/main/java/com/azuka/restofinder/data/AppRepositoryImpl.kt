@@ -6,7 +6,7 @@ import com.azuka.restofinder.data.remote.network.ApiResponse
 import com.azuka.restofinder.data.remote.response.RestaurantResponse
 import com.azuka.restofinder.domain.model.Restaurant
 import com.azuka.restofinder.domain.repository.AppRepository
-import com.azuka.restofinder.utils.DataMapper
+import com.azuka.restofinder.utils.RestaurantDataMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -25,7 +25,7 @@ class AppRepositoryImpl (
         object : NetworkBoundResource<List<Restaurant>, List<RestaurantResponse>>() {
             override fun loadFromDB(): Flow<List<Restaurant>> {
                 return localData.getSearchResultRestaurant().map {
-                    DataMapper.mapEntitiesToDomain(it)
+                    RestaurantDataMapper.mapEntitiesToDomains(it)
                 }
             }
 
@@ -35,7 +35,7 @@ class AppRepositoryImpl (
                 remoteData.searchRestaurant(query)
 
             override suspend fun saveCallResult(data: List<RestaurantResponse>) {
-                val restaurantList = DataMapper.mapResponsesToEntities(data)
+                val restaurantList = RestaurantDataMapper.mapResponsesToEntities(data)
                 localData.insertRestaurants(restaurantList)
             }
 
@@ -43,12 +43,12 @@ class AppRepositoryImpl (
 
     override fun getFavoriteRestaurants(): Flow<List<Restaurant>> {
         return localData.getFavoriteRestaurants().map {
-            DataMapper.mapEntitiesToDomain(it)
+            RestaurantDataMapper.mapEntitiesToDomains(it)
         }
     }
 
     override fun setFavoriteRestaurant(restaurant: Restaurant, isFavorite: Boolean) {
-        val restoEntity = DataMapper.mapDomainToEntity(restaurant)
+        val restoEntity = RestaurantDataMapper.mapDomainToEntity(restaurant)
 //        appExecutor.diskIO().execute { localData.setFavoriteRestaurant(restoEntity, isFavorite) }
     }
 

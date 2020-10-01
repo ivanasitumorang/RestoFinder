@@ -23,6 +23,7 @@ class ItemListAdapter :
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(restaurant: Restaurant) {
             itemView.tvItemName.text = restaurant.name
+            itemView.tvItemRating.text = "Rating : ${restaurant.userRating.rating}"
         }
     }
 

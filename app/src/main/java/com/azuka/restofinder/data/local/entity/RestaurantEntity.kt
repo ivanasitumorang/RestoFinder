@@ -1,7 +1,7 @@
 package com.azuka.restofinder.data.local.entity
 
 import androidx.annotation.NonNull
-import androidx.room.ColumnInfo
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -15,13 +15,13 @@ import androidx.room.PrimaryKey
 data class RestaurantEntity(
     @PrimaryKey
     @NonNull
-    @ColumnInfo(name = "id")
-    var id: String,
-
-    @ColumnInfo(name = "name")
-    var name: String,
-
-    @ColumnInfo(name = "isFavorite")
+    val id: String,
+    val name: String,
+    val url: String,
+    val currency: String,
+    val averageCostForTwo: String,
+    val priceRange: String,
+    @Embedded
+    val userRating: UserRatingEntity,
     var isFavorite: Boolean
-
 )

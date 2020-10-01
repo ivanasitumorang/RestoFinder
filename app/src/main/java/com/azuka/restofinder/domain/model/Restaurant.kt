@@ -1,6 +1,8 @@
 package com.azuka.restofinder.domain.model
 
 import android.os.Parcelable
+import com.azuka.restofinder.data.remote.response.UserRatingResponse
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 
@@ -13,5 +15,10 @@ import kotlinx.android.parcel.Parcelize
 data class Restaurant(
     val id: String,
     val name: String,
+    val url: String,
+    val currency: String,
+    val averageCostForTwo: String,
+    val priceRange: String,
+    val userRating: UserRating,
     val isFavorite: Boolean
 ) : Parcelable
