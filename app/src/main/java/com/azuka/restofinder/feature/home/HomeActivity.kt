@@ -12,9 +12,9 @@ import com.azuka.base.utils.goToScreen
 import com.azuka.restofinder.R
 import com.azuka.restofinder.appComponent
 import com.azuka.restofinder.feature.HomeViewModel
-import com.azuka.restofinder.feature.di.DaggerHomeComponent
-import com.azuka.restofinder.feature.di.HomeComponent
+import com.azuka.restofinder.feature.home.di.HomeComponent
 import com.azuka.restofinder.feature.di.HomeModule
+import com.azuka.restofinder.feature.home.di.DaggerHomeComponent
 import com.azuka.restofinder.utils.AppConstant
 import com.azuka.restofinder.utils.Screen
 import kotlinx.android.synthetic.main.activity_home.*
@@ -109,7 +109,6 @@ class HomeActivity : BaseActivityVM<HomeViewModel>() {
     override fun createComponent(): Component {
         component = DaggerHomeComponent.builder()
             .appComponent(appComponent())
-            .homeModule(HomeModule())
             .build()
         return component
     }
