@@ -2,6 +2,7 @@ package com.azuka.restofinder.feature.home
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -75,6 +76,15 @@ class HomeActivity : BaseActivityVM<HomeViewModel>() {
             false
         }
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.menuFavorite -> {
+            goToScreen(Screen.favoriteList)
+            true
+        }
+
+        else -> super.onOptionsItemSelected(item)
     }
 
     private fun clearSearchResult() {

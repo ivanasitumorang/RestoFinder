@@ -10,4 +10,5 @@ object Screen {
     private const val domain = "com.azuka.restofinder"
 
     val detailRestaurant = Class.forName("$domain.feature.detail.DetailActivity")
+    val favoriteList = Class.forName("$domain.favorite.favoritelist.FavoriteListActivity")
 }

@@ -3,4 +3,6 @@
 
     <string name="menu_search">Cari</string>
     <string name="menu_favorite">Favorite</string>
+    <string name="menu_favorite_list">Favorite List</string>
+    <string name="title_feature_favorite">Feature Favorite</string>
 </resources>
