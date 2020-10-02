@@ -55,7 +55,7 @@ class AppRepositoryImpl (
 
     override fun setFavoriteRestaurant(restaurant: Restaurant, isFavorite: Boolean) {
         val restoEntity = RestaurantDataMapper.mapDomainToEntity(restaurant)
-//        appExecutor.diskIO().execute { localData.setFavoriteRestaurant(restoEntity, isFavorite) }
+        localData.setFavoriteRestaurant(restoEntity, isFavorite)
     }
 
 }

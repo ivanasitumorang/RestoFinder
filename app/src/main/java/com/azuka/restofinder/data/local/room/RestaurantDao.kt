@@ -25,7 +25,7 @@ interface RestaurantDao {
     @Update
     fun updateFavoriteRestaurant(restaurantEntity: RestaurantEntity)
 
-    @Query("DELETE FROM restaurant WHERE isFavorite = 0 AND isSearchResult = 1")
+    @Query("DELETE FROM restaurant WHERE isFavorite = 0 AND isTemporary = 1")
     fun clearRestaurants()
 
     @Query("SELECT * FROM restaurant WHERE id = :restaurantId AND isFavorite = 1")

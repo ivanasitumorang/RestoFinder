@@ -32,32 +32,22 @@ class HomeViewModel(
         if (restaurantId == null) {
             _isFavorite.value = false
         } else {
+            _loadingHandler.value = true
             val isFavoriteRestaurantDataSource =
                 homeUseCase.checkIfFavoriteRestaurant(restaurantId).asLiveData()
             _isFavorite.addSource(isFavoriteRestaurantDataSource) { state ->
                 _isFavorite.value = state
+                _loadingHandler.postValue(false)
             }
         }
     }
 
     fun saveToFavorite(restaurant: Restaurant) {
-        // todo : save ke favorite
-        _loadingHandler.value = true
-        viewModelScope.launch {
-            delay(1500)
-            _isFavorite.postValue(true)
-            _loadingHandler.postValue(false)
-        }
+        homeUseCase.setFavoriteRestaurant(restaurant, true)
     }
 
     fun removeFromFavorite(restaurant: Restaurant) {
-        // todo : remove from favorite
-        _loadingHandler.value = true
-        viewModelScope.launch {
-            delay(1500)
-            _isFavorite.postValue(false)
-            _loadingHandler.postValue(false)
-        }
+        homeUseCase.setFavoriteRestaurant(restaurant, false)
     }
 
     fun searchRestaurant(query: String) {

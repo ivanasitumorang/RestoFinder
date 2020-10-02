@@ -56,7 +56,8 @@ object RestaurantDataMapper : Mapper<RestaurantEntity, Restaurant, RestaurantRes
             },
             name = name,
             isSearchResult = isSearchResult,
-            cuisines = cuisines
+            cuisines = cuisines,
+            isTemporary = false
         )
     }
 
@@ -80,7 +81,8 @@ object RestaurantDataMapper : Mapper<RestaurantEntity, Restaurant, RestaurantRes
                 },
                 name = name,
                 isSearchResult = true,
-                cuisines = cuisines
+                cuisines = cuisines,
+                isTemporary = true
             )
         }
 }

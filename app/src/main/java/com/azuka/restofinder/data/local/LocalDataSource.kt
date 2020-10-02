@@ -43,7 +43,9 @@ class LocalDataSourceImpl(
         restaurantDao.getFavoriteRestaurantById(restaurantId)
 
     override fun setFavoriteRestaurant(resto: RestaurantEntity, isFavorite: Boolean) {
-        resto.isFavorite = isFavorite
-        restaurantDao.updateFavoriteRestaurant(resto)
+        CoroutineScope(coroutineContextProvider.backgroundDispatcher()).launch {
+            resto.isFavorite = isFavorite
+            restaurantDao.updateFavoriteRestaurant(resto)
+        }
     }
 }

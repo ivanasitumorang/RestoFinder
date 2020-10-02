@@ -26,5 +26,6 @@ data class RestaurantEntity(
     @Embedded
     val userRating: UserRatingEntity,
     var isFavorite: Boolean,
-    var isSearchResult: Boolean
+    var isSearchResult: Boolean,
+    var isTemporary: Boolean
 )
