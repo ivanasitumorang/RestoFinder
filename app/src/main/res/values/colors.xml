@@ -7,4 +7,7 @@
     <color name="lightLime">#e8ffc1</color>
 
     <color name="darkGrey">#242523</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="darkWhite">#E3E1E1</color>
 </resources>

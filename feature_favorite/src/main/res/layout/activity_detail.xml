@@ -22,16 +22,24 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/darkGrey"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Restaurant Name" />
 
     <TextView
-        android:id="@+id/tvRestaurantPriceRange"
+        android:id="@+id/tvRestaurantPriceRangeHighlight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:textColor="@color/darkGrey"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivRestaurantImage"
         tools:text="$$" />
@@ -41,8 +49,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tvRestaurantPriceRange"
-        app:layout_constraintStart_toEndOf="@+id/tvRestaurantPriceRange"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvRestaurantPriceRangeDim"
+        app:layout_constraintStart_toEndOf="@+id/tvRestaurantPriceRangeDim"
         tools:text="Kisaran Rp 80000 untuk 2 orang" />
 
     <RatingBar
@@ -53,25 +61,28 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:numStars="5"
+        android:progressTint="@color/colorPrimary"
         android:rating="3.3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvRestaurantPriceRange" />
+        app:layout_constraintTop_toBottomOf="@+id/tvRestaurantPriceRangeHighlight" />
 
     <TextView
         android:id="@+id/tvRestaurantVotes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="(80 votes)"
         app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
         app:layout_constraintStart_toEndOf="@+id/ratingBar"
-        app:layout_constraintTop_toTopOf="@+id/ratingBar" />
+        app:layout_constraintTop_toTopOf="@+id/ratingBar"
+        tools:text="(80 votes)" />
 
     <TextView
         android:id="@+id/tvRestaurantRatingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/ratingBar"
         app:layout_constraintTop_toBottomOf="@+id/ratingBar"
         tools:text="Good" />
@@ -83,7 +94,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:background="@color/colorPrimary"
         android:text="@string/detail_btn_see_information"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -93,8 +106,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/tvRestaurantName"
         app:layout_constraintTop_toBottomOf="@+id/tvRestaurantName"
         tools:text="Indonesian" />
+
+    <TextView
+        android:id="@+id/tvRestaurantPriceRangeDim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/darkWhite"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvRestaurantPriceRangeHighlight"
+        app:layout_constraintStart_toEndOf="@+id/tvRestaurantPriceRangeHighlight"
+        tools:text="$" />
 </androidx.constraintlayout.widget.ConstraintLayout>

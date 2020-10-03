@@ -1,5 +1,7 @@
 <resources>
     <string name="favorite_list_toolbar_title">Favorite List</string>
-    <string name="detail_restaurant_not_available">Restaurant Tidak Tersedia</string>
+    <string name="detail_restaurant_not_available">Restaurant Not Available</string>
     <string name="detail_btn_see_information">See more about this restaurant</string>
+    <string name="detail_vote_total_format">(%s votes)</string>
+    <string name="detail_price_for_two_format">Average cost for two is %s %s</string>
 </resources>

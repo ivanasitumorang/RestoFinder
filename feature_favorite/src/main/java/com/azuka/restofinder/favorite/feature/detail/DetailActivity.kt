@@ -16,6 +16,7 @@ import com.azuka.restofinder.favorite.R
 import com.azuka.restofinder.favorite.feature.FavoriteViewModel
 import com.azuka.restofinder.favorite.feature.detail.di.DaggerDetailComponent
 import com.azuka.restofinder.favorite.feature.detail.di.DetailComponent
+import com.azuka.restofinder.favorite.utils.formatPriceToSymbol
 import com.azuka.restofinder.utils.AppConstant
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail.*
@@ -73,10 +74,15 @@ class DetailActivity : BaseActivityVM<FavoriteViewModel>() {
             setupToolbarTitle(it.name)
 
             tvRestaurantName.text = it.name
-            tvRestaurantPriceForTwo.text = it.averageCostForTwo
-            tvRestaurantPriceRange.text = it.priceRange
+            tvRestaurantPriceForTwo.text =
+                getString(R.string.detail_price_for_two_format, it.currency, it.averageCostForTwo)
+
+            val priceRangeSymbol = it.priceRange.formatPriceToSymbol()
+            tvRestaurantPriceRangeHighlight.text = priceRangeSymbol.first
+            tvRestaurantPriceRangeDim.text = priceRangeSymbol.second
             tvRestaurantRatingText.text = it.userRating.ratingText
-            tvRestaurantVotes.text = it.userRating.votes
+            tvRestaurantVotes.text =
+                getString(R.string.detail_vote_total_format, it.userRating.votes)
             tvRestaurantCuisines.text = it.cuisines
             ratingBar.rating = it.userRating.rating.toFloat()
             if (it.featuredImage.isEmpty()) {
