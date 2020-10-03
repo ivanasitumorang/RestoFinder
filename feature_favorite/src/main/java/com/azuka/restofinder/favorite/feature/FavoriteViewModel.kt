@@ -15,8 +15,15 @@ import com.azuka.restofinder.domain.usecase.AppUseCase
 
 class FavoriteViewModel(private val appUseCase: AppUseCase) : BaseViewModel() {
 
+    private val _favoriteRestaurants = MediatorLiveData<List<Restaurant>>()
+    val favoriteRestaurants: LiveData<List<Restaurant>> = _favoriteRestaurants
+
     private val _isFavorite = MediatorLiveData<Boolean>()
     val isFavorite: LiveData<Boolean> = _isFavorite
+
+    fun getFavoriteRestaurants() {
+
+    }
 
     fun checkIfFavoriteRestaurant(restaurantId: String?) {
         if (restaurantId == null) {
