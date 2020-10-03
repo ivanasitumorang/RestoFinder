@@ -4,7 +4,7 @@ import com.azuka.restofinder.domain.model.Restaurant
 import com.azuka.restofinder.domain.repository.AppRepository
 import kotlinx.coroutines.flow.*
 
-class HomeUseCaseImpl (private val repository: AppRepository) : HomeUseCase {
+class AppUseCaseImpl(private val repository: AppRepository) : AppUseCase {
 
     override fun searchRestaurant(query: String) = repository.searchRestaurant(query)
 

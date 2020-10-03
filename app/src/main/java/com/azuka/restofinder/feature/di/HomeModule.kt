@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import com.azuka.base.di.scope.FeatureScope
 import com.azuka.base.di.viewmodel.ViewModelKey
 import com.azuka.restofinder.domain.repository.AppRepository
-import com.azuka.restofinder.domain.usecase.HomeUseCase
-import com.azuka.restofinder.domain.usecase.HomeUseCaseImpl
+import com.azuka.restofinder.domain.usecase.AppUseCase
+import com.azuka.restofinder.domain.usecase.AppUseCaseImpl
 import com.azuka.restofinder.feature.HomeViewModel
 import dagger.Module
 import dagger.Provides
@@ -20,15 +20,15 @@ import dagger.multibindings.IntoMap
 @Module
 class HomeModule {
 
-    @FeatureScope
-    @Provides
-    fun provideHomeUseCase(repository: AppRepository): HomeUseCase = HomeUseCaseImpl(repository)
+//    @FeatureScope
+//    @Provides
+//    fun provideHomeUseCase(repository: AppRepository): AppUseCase = AppUseCaseImpl(repository)
 
     @Provides
     @IntoMap
     @ViewModelKey(HomeViewModel::class)
     fun provideHomeViewModel(
-        homeUseCase: HomeUseCase
+        appUseCase: AppUseCase
     ): ViewModel =
-        HomeViewModel(homeUseCase)
+        HomeViewModel(appUseCase)
 }

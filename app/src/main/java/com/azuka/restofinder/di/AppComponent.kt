@@ -15,6 +15,7 @@ import com.azuka.restofinder.di.module.AppNetworkModule
 import com.azuka.restofinder.di.module.DatabaseModule
 import com.azuka.restofinder.di.module.RepositoryModule
 import com.azuka.restofinder.domain.repository.AppRepository
+import com.azuka.restofinder.domain.usecase.AppUseCase
 import com.google.gson.Gson
 import dagger.Component
 import retrofit2.Retrofit
@@ -52,6 +53,7 @@ interface AppComponent {
     fun networkProvider(): Retrofit
     fun gson(): Gson
     fun restDao(): RestaurantDao
+    fun appUseCase(): AppUseCase
     fun appRepository(): AppRepository
     fun database(): RestaurantDatabase
     fun local(): LocalDataSource

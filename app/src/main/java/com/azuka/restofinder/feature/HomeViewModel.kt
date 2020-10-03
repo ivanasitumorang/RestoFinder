@@ -3,13 +3,10 @@ package com.azuka.restofinder.feature
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
 import com.azuka.base.presentation.BaseViewModel
 import com.azuka.restofinder.data.Resource
 import com.azuka.restofinder.domain.model.Restaurant
-import com.azuka.restofinder.domain.usecase.HomeUseCase
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.azuka.restofinder.domain.usecase.AppUseCase
 
 
 /**
@@ -19,7 +16,7 @@ import kotlinx.coroutines.launch
 
 
 class HomeViewModel(
-    private val homeUseCase: HomeUseCase
+    private val appUseCase: AppUseCase
 ) : BaseViewModel() {
 
     private val _searchResult = MediatorLiveData<List<Restaurant>>()
@@ -34,7 +31,7 @@ class HomeViewModel(
         } else {
             _loadingHandler.value = true
             val isFavoriteRestaurantDataSource =
-                homeUseCase.checkIfFavoriteRestaurant(restaurantId).asLiveData()
+                appUseCase.checkIfFavoriteRestaurant(restaurantId).asLiveData()
             _isFavorite.addSource(isFavoriteRestaurantDataSource) { state ->
                 _isFavorite.value = state
                 _loadingHandler.postValue(false)
@@ -43,15 +40,15 @@ class HomeViewModel(
     }
 
     fun saveToFavorite(restaurant: Restaurant) {
-        homeUseCase.setFavoriteRestaurant(restaurant, true)
+        appUseCase.setFavoriteRestaurant(restaurant, true)
     }
 
     fun removeFromFavorite(restaurant: Restaurant) {
-        homeUseCase.setFavoriteRestaurant(restaurant, false)
+        appUseCase.setFavoriteRestaurant(restaurant, false)
     }
 
     fun searchRestaurant(query: String) {
-        val searchRestaurantDataSource = homeUseCase.searchRestaurant(query).asLiveData()
+        val searchRestaurantDataSource = appUseCase.searchRestaurant(query).asLiveData()
         _loadingHandler.value = true
         _searchResult.addSource(searchRestaurantDataSource) { resource ->
             when (resource) {

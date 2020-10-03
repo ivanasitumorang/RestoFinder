@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
  * Android Engineer
  */
 
-interface HomeUseCase {
+interface AppUseCase {
     fun searchRestaurant(query: String): Flow<Resource<List<Restaurant>>>
     fun getFavoriteRestaurants(): Flow<List<Restaurant>>
     fun checkIfFavoriteRestaurant(restaurantId: String): Flow<Boolean>

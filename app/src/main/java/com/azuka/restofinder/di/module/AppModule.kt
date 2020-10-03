@@ -1,6 +1,10 @@
 package com.azuka.restofinder.di.module
 
+import com.azuka.base.di.scope.FeatureScope
 import com.azuka.base.presentation.widget.LoadingDialog
+import com.azuka.restofinder.domain.repository.AppRepository
+import com.azuka.restofinder.domain.usecase.AppUseCase
+import com.azuka.restofinder.domain.usecase.AppUseCaseImpl
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
@@ -21,6 +25,10 @@ class AppModule {
     @Singleton
     @Provides
     fun provideLoadingDialog(): LoadingDialog = LoadingDialog.newInstance()
+
+    @Singleton
+    @Provides
+    fun provideHomeUseCase(repository: AppRepository): AppUseCase = AppUseCaseImpl(repository)
 
     // todo : add repo
     // todo : add navigator
