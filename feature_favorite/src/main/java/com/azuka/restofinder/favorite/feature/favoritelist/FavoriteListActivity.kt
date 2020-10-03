@@ -2,6 +2,7 @@ package com.azuka.restofinder.favorite.feature.favoritelist
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.azuka.base.di.component.Component
@@ -38,7 +39,10 @@ class FavoriteListActivity : BaseActivityVM<FavoriteViewModel>() {
 
     private fun setupObserver() {
         viewModel.favoriteRestaurants.observe(this, Observer { restaurants ->
-            if (restaurants != null) {
+            if (restaurants.isNullOrEmpty()) {
+                displayBackgroundInfo(true)
+            } else {
+                displayBackgroundInfo(false)
                 adapter.submitList(restaurants)
             }
         })
@@ -56,6 +60,11 @@ class FavoriteListActivity : BaseActivityVM<FavoriteViewModel>() {
             }
         }
         rvFavoriteList.adapter = adapter
+    }
+
+    private fun displayBackgroundInfo(needToShow: Boolean) {
+        if (needToShow) rlNoFavorite.visibility = View.VISIBLE
+        else rlNoFavorite.visibility = View.GONE
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {

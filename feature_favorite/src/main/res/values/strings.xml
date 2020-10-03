@@ -4,4 +4,6 @@
     <string name="detail_btn_see_information">See more about this restaurant</string>
     <string name="detail_vote_total_format">(%s votes)</string>
     <string name="detail_price_for_two_format">Average cost for two is %s %s</string>
+
+    <string name="favorite_list_no_data">There is still no favorite restaurant.\nYou can add one 😁</string>
 </resources>
