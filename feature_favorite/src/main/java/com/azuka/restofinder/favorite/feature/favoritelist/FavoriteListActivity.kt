@@ -1,6 +1,7 @@
 package com.azuka.restofinder.favorite.feature.favoritelist
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.azuka.base.di.component.Component
@@ -44,6 +45,10 @@ class FavoriteListActivity : BaseActivityVM<FavoriteViewModel>() {
     }
 
     private fun setupUI() {
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            title = getString(R.string.favorite_list_toolbar_title)
+        }
         viewModel.getFavoriteRestaurants()
         adapter.setOnItemClickListener { restaurant ->
             goToScreen(Screen.detailRestaurant) {
@@ -51,6 +56,14 @@ class FavoriteListActivity : BaseActivityVM<FavoriteViewModel>() {
             }
         }
         rvFavoriteList.adapter = adapter
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        android.R.id.home -> {
+            finish()
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
 
     override fun initDependencyInjection() {

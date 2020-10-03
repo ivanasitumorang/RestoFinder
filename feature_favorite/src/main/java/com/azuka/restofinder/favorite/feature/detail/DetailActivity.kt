@@ -9,16 +9,17 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.azuka.base.di.component.Component
 import com.azuka.base.presentation.BaseActivityVM
+import com.azuka.base.utils.showToast
 import com.azuka.restofinder.appComponent
 import com.azuka.restofinder.domain.model.Restaurant
 import com.azuka.restofinder.favorite.R
-import com.azuka.restofinder.R as appR
 import com.azuka.restofinder.favorite.feature.FavoriteViewModel
 import com.azuka.restofinder.favorite.feature.detail.di.DaggerDetailComponent
 import com.azuka.restofinder.favorite.feature.detail.di.DetailComponent
 import com.azuka.restofinder.utils.AppConstant
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail.*
+import com.azuka.restofinder.R as appR
 
 class DetailActivity : BaseActivityVM<FavoriteViewModel>() {
 
@@ -40,7 +41,7 @@ class DetailActivity : BaseActivityVM<FavoriteViewModel>() {
     override fun onActivityReady(savedInstanceState: Bundle?) {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         if (restaurant == null) {
-            Toast.makeText(this, "Restaurant Tidak Tersedia", Toast.LENGTH_SHORT).show()
+            showToast(getString(R.string.detail_restaurant_not_available))
         } else {
             setupUI()
             setupClickListener()
@@ -94,13 +95,6 @@ class DetailActivity : BaseActivityVM<FavoriteViewModel>() {
         supportActionBar?.title = title
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_detail, menu)
-        btnFavorite = menu?.findItem(R.id.menuFavorite) as MenuItem
-        observeFavorite()
-        return super.onCreateOptionsMenu(menu)
-    }
-
     private fun toggleFavoriteIcon() {
         restaurant?.let {
             if (isRestaurantFavorite) {
@@ -117,6 +111,13 @@ class DetailActivity : BaseActivityVM<FavoriteViewModel>() {
         } else {
             btnFavorite.icon = ContextCompat.getDrawable(this, appR.drawable.ic_love_outline)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_detail, menu)
+        btnFavorite = menu?.findItem(R.id.menuFavorite) as MenuItem
+        observeFavorite()
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {

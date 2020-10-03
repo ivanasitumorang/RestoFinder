@@ -2,6 +2,7 @@ package com.azuka.base.utils
 
 import android.content.Context
 import android.content.Intent
+import android.widget.Toast
 
 
 /**
@@ -14,4 +15,8 @@ fun Context.goToScreen(clazz: Class<*>, bundle: (Intent.() -> Unit)? = null) {
         bundle?.invoke(this)
         startActivity(this)
     }
+}
+
+fun Context.showToast(message: String, length: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, message, length).show()
 }
