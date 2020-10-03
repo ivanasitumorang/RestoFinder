@@ -69,6 +69,8 @@ class DetailActivity : BaseActivityVM<FavoriteViewModel>() {
 
     private fun setupUI() {
         restaurant?.let {
+            setupToolbarTitle(it.name)
+
             tvRestaurantName.text = it.name
             tvRestaurantPriceForTwo.text = it.averageCostForTwo
             tvRestaurantPriceRange.text = it.priceRange
@@ -86,6 +88,10 @@ class DetailActivity : BaseActivityVM<FavoriteViewModel>() {
                     .into(ivRestaurantImage)
             }
         }
+    }
+
+    private fun setupToolbarTitle(title: String) {
+        supportActionBar?.title = title
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
