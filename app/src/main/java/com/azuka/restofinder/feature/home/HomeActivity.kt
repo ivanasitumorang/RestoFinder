@@ -12,12 +12,14 @@ import com.azuka.base.presentation.BaseActivityVM
 import com.azuka.base.utils.goToScreen
 import com.azuka.restofinder.R
 import com.azuka.restofinder.appComponent
+import com.azuka.restofinder.domain.model.InfoData
 import com.azuka.restofinder.feature.HomeViewModel
 import com.azuka.restofinder.feature.home.di.DaggerHomeComponent
 import com.azuka.restofinder.feature.home.di.HomeComponent
 import com.azuka.restofinder.utils.AppConstant
 import com.azuka.restofinder.utils.Screen
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.layout_info.*
 
 class HomeActivity : BaseActivityVM<HomeViewModel>() {
 
@@ -52,17 +54,24 @@ class HomeActivity : BaseActivityVM<HomeViewModel>() {
     private fun setupObserver() {
         viewModel.searchResult.observe(this, Observer { restaurants ->
             if (restaurants.isNullOrEmpty()) {
-                displayWelcomeMessage(needToShow = true)
+                displayBackgroundInfo(needToShow = true)
             } else {
                 adapter.submitList(restaurants)
-                displayWelcomeMessage(needToShow = false)
+                displayBackgroundInfo(needToShow = false)
             }
         })
     }
 
-    private fun displayWelcomeMessage(needToShow: Boolean) {
-        if (needToShow) rlHomeBackground.visibility = View.VISIBLE
-        else rlHomeBackground.visibility = View.GONE
+    private fun displayBackgroundInfo(needToShow: Boolean, data: InfoData? = null) {
+        if (data != null) {
+            ivImage.setImageResource(data.image)
+            tvMessage.text = data.message
+        } else {
+            ivImage.setImageResource(R.drawable.ic_food_store)
+            tvMessage.text = getString(R.string.home_welcoming_message)
+        }
+        if (needToShow) bgInfo.visibility = View.VISIBLE
+        else bgInfo.visibility = View.GONE
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -98,7 +107,7 @@ class HomeActivity : BaseActivityVM<HomeViewModel>() {
 
     private fun clearSearchResult() {
         adapter.submitList(emptyList())
-        displayWelcomeMessage(needToShow = true)
+        displayBackgroundInfo(needToShow = true)
     }
 
     override fun onBackPressed() {
