@@ -1,6 +1,9 @@
 package com.azuka.restofinder.data.local.room
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.azuka.restofinder.data.local.entity.RestaurantEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -13,7 +16,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface RestaurantDao {
 
-    @Query("SELECT * FROM restaurant WHERE isSearchResult = 1")
+    @Query("SELECT * FROM restaurant")
     fun getSearchResultRestaurant(): Flow<List<RestaurantEntity>>
 
     @Query("SELECT * FROM restaurant where isFavorite = 1")
@@ -25,7 +28,7 @@ interface RestaurantDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun updateFavoriteRestaurant(restaurantEntity: RestaurantEntity)
 
-    @Query("DELETE FROM restaurant WHERE isFavorite = 0 AND isTemporary = 1")
+    @Query("DELETE FROM restaurant WHERE isFavorite = 0")
     fun clearRestaurants()
 
     @Query("SELECT * FROM restaurant WHERE id = :restaurantId AND isFavorite = 1")
