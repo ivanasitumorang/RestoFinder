@@ -7,6 +7,31 @@
     android:orientation="vertical"
     tools:context=".feature.home.HomeActivity">
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/rlHomeBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@color/lightLime">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:srcCompat="@drawable/ic_food_store" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textAlignment="center"
+            app:lineHeight="24dp"
+            android:textSize="16sp"
+            android:textColor="@color/darkGrey"
+            android:text="@string/home_welcoming_message" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvItemList"
         android:layout_width="match_parent"

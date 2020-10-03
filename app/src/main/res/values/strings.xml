@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">Restaurant Finder</string>
 
+    <string name="title_feature_favorite">Feature Favorite</string>
+
     <string name="menu_search">Cari</string>
     <string name="menu_favorite">Favorite</string>
     <string name="menu_favorite_list">Favorite List</string>
-    <string name="title_feature_favorite">Feature Favorite</string>
+
+    <string name="home_welcoming_message">Welcome to Restaurant Finder App 😄\nClick search icon above to explore the restaurants</string>
 </resources>

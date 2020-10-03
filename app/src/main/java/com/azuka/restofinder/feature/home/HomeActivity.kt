@@ -3,6 +3,7 @@ package com.azuka.restofinder.feature.home
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -50,10 +51,18 @@ class HomeActivity : BaseActivityVM<HomeViewModel>() {
 
     private fun setupObserver() {
         viewModel.searchResult.observe(this, Observer { restaurants ->
-            if (restaurants != null) {
+            if (restaurants.isNullOrEmpty()) {
+                displayWelcomeMessage(needToShow = true)
+            } else {
                 adapter.submitList(restaurants)
+                displayWelcomeMessage(needToShow = false)
             }
         })
+    }
+
+    private fun displayWelcomeMessage(needToShow: Boolean) {
+        if (needToShow) rlHomeBackground.visibility = View.VISIBLE
+        else rlHomeBackground.visibility = View.GONE
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -89,6 +98,7 @@ class HomeActivity : BaseActivityVM<HomeViewModel>() {
 
     private fun clearSearchResult() {
         adapter.submitList(emptyList())
+        displayWelcomeMessage(needToShow = true)
     }
 
     override fun onBackPressed() {

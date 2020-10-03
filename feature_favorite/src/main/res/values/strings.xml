@@ -1,4 +1,5 @@
 <resources>
     <string name="favorite_list_toolbar_title">Favorite List</string>
     <string name="detail_restaurant_not_available">Restaurant Tidak Tersedia</string>
+    <string name="detail_btn_see_information">See more about this restaurant</string>
 </resources>

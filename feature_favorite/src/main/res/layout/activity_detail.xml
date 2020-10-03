@@ -22,9 +22,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Restaurant Name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Restaurant Name" />
 
     <TextView
         android:id="@+id/tvRestaurantPriceRange"
@@ -32,18 +32,18 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="$$"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivRestaurantImage" />
+        app:layout_constraintTop_toBottomOf="@+id/ivRestaurantImage"
+        tools:text="$$" />
 
     <TextView
         android:id="@+id/tvRestaurantPriceForTwo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="Kisaran Rp 80000 untuk 2 orang"
         app:layout_constraintBaseline_toBaselineOf="@+id/tvRestaurantPriceRange"
-        app:layout_constraintStart_toEndOf="@+id/tvRestaurantPriceRange" />
+        app:layout_constraintStart_toEndOf="@+id/tvRestaurantPriceRange"
+        tools:text="Kisaran Rp 80000 untuk 2 orang" />
 
     <RatingBar
         android:id="@+id/ratingBar"
@@ -72,9 +72,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="Good"
         app:layout_constraintStart_toStartOf="@+id/ratingBar"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+        app:layout_constraintTop_toBottomOf="@+id/ratingBar"
+        tools:text="Good" />
 
     <Button
         android:id="@+id/btnRestaurantToDetails"
@@ -83,7 +83,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:text="See more about this restaurant"
+        android:text="@string/detail_btn_see_information"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -93,8 +93,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Indonesian"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/tvRestaurantName"
-        app:layout_constraintTop_toBottomOf="@+id/tvRestaurantName" />
+        app:layout_constraintTop_toBottomOf="@+id/tvRestaurantName"
+        tools:text="Indonesian" />
 </androidx.constraintlayout.widget.ConstraintLayout>
