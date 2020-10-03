@@ -3,12 +3,12 @@ package com.azuka.restofinder.favorite.feature.detail
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.azuka.base.di.component.Component
 import com.azuka.base.presentation.BaseActivityVM
+import com.azuka.base.utils.openBrowser
 import com.azuka.base.utils.showToast
 import com.azuka.restofinder.appComponent
 import com.azuka.restofinder.domain.model.Restaurant
@@ -61,11 +61,9 @@ class DetailActivity : BaseActivityVM<FavoriteViewModel>() {
 
     private fun setupClickListener() {
         btnRestaurantToDetails.setOnClickListener {
-            Toast.makeText(
-                this,
-                "Go to ${restaurant?.url}",
-                Toast.LENGTH_SHORT
-            ).show()
+            restaurant?.let {
+                openBrowser(it.url)
+            }
         }
     }
 
