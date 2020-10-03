@@ -14,7 +14,8 @@
     </dist:module>
 
     <application>
-        <activity android:name=".favoritelist.FavoriteListActivity"></activity>
+        <activity android:name=".feature.favoritelist.FavoriteListActivity" />
+        <activity android:name=".feature.detail.DetailActivity" />
     </application>
 
 </manifest>

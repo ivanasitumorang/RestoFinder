@@ -9,6 +9,6 @@ package com.azuka.restofinder.utils
 object Screen {
     private const val domain = "com.azuka.restofinder"
 
-    val detailRestaurant = Class.forName("$domain.feature.detail.DetailActivity")
-    val favoriteList = Class.forName("$domain.favorite.favoritelist.FavoriteListActivity")
+    val detailRestaurant = Class.forName("$domain.favorite.feature.detail.DetailActivity")
+    val favoriteList = Class.forName("$domain.favorite.feature.favoritelist.FavoriteListActivity")
 }

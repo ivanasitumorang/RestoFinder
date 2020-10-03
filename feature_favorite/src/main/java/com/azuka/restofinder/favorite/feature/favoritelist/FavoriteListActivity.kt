@@ -1,4 +1,4 @@
-package com.azuka.restofinder.favorite.favoritelist
+package com.azuka.restofinder.favorite.feature.favoritelist
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

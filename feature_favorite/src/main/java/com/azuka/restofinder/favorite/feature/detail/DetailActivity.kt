@@ -1,4 +1,4 @@
-package com.azuka.restofinder.feature.detail
+package com.azuka.restofinder.favorite.feature.detail
 
 import android.os.Bundle
 import android.view.Menu
@@ -9,20 +9,21 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.azuka.base.di.component.Component
 import com.azuka.base.presentation.BaseActivityVM
-import com.azuka.restofinder.R
 import com.azuka.restofinder.appComponent
 import com.azuka.restofinder.domain.model.Restaurant
-import com.azuka.restofinder.feature.HomeViewModel
-import com.azuka.restofinder.feature.detail.di.DaggerDetailComponent
-import com.azuka.restofinder.feature.detail.di.DetailComponent
+import com.azuka.restofinder.favorite.R
+import com.azuka.restofinder.R as appR
+import com.azuka.restofinder.favorite.feature.FavoriteViewModel
+import com.azuka.restofinder.favorite.feature.detail.di.DaggerDetailComponent
+import com.azuka.restofinder.favorite.feature.detail.di.DetailComponent
 import com.azuka.restofinder.utils.AppConstant
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail.*
 
-class DetailActivity : BaseActivityVM<HomeViewModel>() {
+class DetailActivity : BaseActivityVM<FavoriteViewModel>() {
 
-    private val viewModel: HomeViewModel by lazy {
-        ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
+    private val viewModel: FavoriteViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory).get(FavoriteViewModel::class.java)
     }
 
     private val restaurant by lazy {
@@ -106,9 +107,9 @@ class DetailActivity : BaseActivityVM<HomeViewModel>() {
 
     private fun setFavoriteIcon(state: Boolean) {
         if (state) {
-            btnFavorite.icon = ContextCompat.getDrawable(this, R.drawable.ic_love_full)
+            btnFavorite.icon = ContextCompat.getDrawable(this, appR.drawable.ic_love_full)
         } else {
-            btnFavorite.icon = ContextCompat.getDrawable(this, R.drawable.ic_love_outline)
+            btnFavorite.icon = ContextCompat.getDrawable(this, appR.drawable.ic_love_outline)
         }
     }
 
@@ -135,5 +136,5 @@ class DetailActivity : BaseActivityVM<HomeViewModel>() {
         component.inject(this)
     }
 
-    override fun getVM(): HomeViewModel? = viewModel
+    override fun getVM(): FavoriteViewModel? = viewModel
 }

@@ -1,6 +1,5 @@
 package com.azuka.restofinder.di.module
 
-import com.azuka.base.di.scope.FeatureScope
 import com.azuka.base.presentation.widget.LoadingDialog
 import com.azuka.restofinder.domain.repository.AppRepository
 import com.azuka.restofinder.domain.usecase.AppUseCase
@@ -29,7 +28,4 @@ class AppModule {
     @Singleton
     @Provides
     fun provideHomeUseCase(repository: AppRepository): AppUseCase = AppUseCaseImpl(repository)
-
-    // todo : add repo
-    // todo : add navigator
 }
