@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.azuka.restofinder.R
 import com.azuka.restofinder.domain.model.Restaurant
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_restaurant_list.view.*
 
 
@@ -29,8 +30,26 @@ class ItemListAdapter :
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(restaurant: Restaurant, clickListener: ((Restaurant) -> Unit)?) {
             itemView.apply {
+                if (restaurant.featuredImage.isEmpty()) {
+                    ivItemImage.setImageResource(R.drawable.ic_no_image)
+                } else {
+                    Picasso.get()
+                        .load(restaurant.featuredImage)
+                        .fit()
+                        .error(R.drawable.ic_no_image)
+                        .into(ivItemImage)
+                }
                 tvItemName.text = restaurant.name
-                tvItemRating.text = "Rating : ${restaurant.userRating.rating}"
+                tvItemCuisines.text = restaurant.cuisines
+                ratingBar.rating = restaurant.userRating.rating.toFloat()
+                tvItemVotes.text = context.getString(
+                    R.string.home_item_search_vote_format,
+                    restaurant.userRating.votes
+                )
+                tvItemPriceRange.text = context.getString(
+                    R.string.home_item_search_price_range_format,
+                    restaurant.priceRange
+                )
                 itemList.setOnClickListener { clickListener?.invoke(restaurant) }
             }
         }

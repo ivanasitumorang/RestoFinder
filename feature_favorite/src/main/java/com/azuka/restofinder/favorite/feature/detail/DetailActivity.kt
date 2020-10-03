@@ -84,12 +84,12 @@ class DetailActivity : BaseActivityVM<FavoriteViewModel>() {
             tvRestaurantCuisines.text = it.cuisines
             ratingBar.rating = it.userRating.rating.toFloat()
             if (it.featuredImage.isEmpty()) {
-                ivRestaurantImage.setImageResource(R.drawable.ic_no_image)
+                ivRestaurantImage.setImageResource(appR.drawable.ic_no_image)
             } else {
                 Picasso.get()
                     .load(it.featuredImage)
                     .fit()
-                    .error(R.drawable.ic_no_image)
+                    .error(appR.drawable.ic_no_image)
                     .into(ivRestaurantImage)
             }
         }

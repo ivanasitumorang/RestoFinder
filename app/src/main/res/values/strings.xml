@@ -8,4 +8,6 @@
     <string name="menu_favorite_list">Favorite List</string>
 
     <string name="home_welcoming_message">Welcome to Restaurant Finder App 😄\nClick search icon above to explore the restaurants</string>
+    <string name="home_item_search_vote_format">(%s)</string>
+    <string name="home_item_search_price_range_format">Price %s of 4</string>
 </resources>
