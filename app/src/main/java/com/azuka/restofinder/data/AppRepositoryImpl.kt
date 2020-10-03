@@ -8,6 +8,7 @@ import com.azuka.restofinder.domain.model.Restaurant
 import com.azuka.restofinder.domain.repository.AppRepository
 import com.azuka.restofinder.utils.RestaurantDataMapper
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 
 
@@ -24,8 +25,12 @@ class AppRepositoryImpl (
     override fun searchRestaurant(query: String): Flow<Resource<List<Restaurant>>> =
         object : NetworkBoundResource<List<Restaurant>, List<RestaurantResponse>>() {
             override fun loadFromDB(): Flow<List<Restaurant>> {
-                return localData.getSearchResultRestaurant().map {
-                    RestaurantDataMapper.mapEntitiesToDomains(it)
+                return if (shouldSaveResult()) {
+                    localData.getSearchResultRestaurant().map {
+                        RestaurantDataMapper.mapEntitiesToDomains(it)
+                    }
+                } else {
+                    flowOf(getResultFromResponse())
                 }
             }
 
@@ -38,6 +43,16 @@ class AppRepositoryImpl (
                 val restaurantList = RestaurantDataMapper.mapResponsesToEntities(data)
                 localData.insertRestaurants(restaurantList)
             }
+
+            override fun getResultFromResponse(): List<Restaurant> {
+                val data = responseData
+                return if (data != null) {
+                    val restaurantList = RestaurantDataMapper.mapResponsesToEntities(data)
+                    RestaurantDataMapper.mapEntitiesToDomains(restaurantList)
+                } else emptyList()
+            }
+
+            override fun shouldSaveResult(): Boolean = false
 
         }.asFlow()
 

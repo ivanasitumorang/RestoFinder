@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.*
 
 abstract class NetworkBoundResource<ResultType, RequestType> {
 
+    var responseData: RequestType? = null
+
     private var result: Flow<Resource<ResultType>> = flow {
         emit(Resource.Loading())
         val dbSource = loadFromDB().first()
@@ -18,7 +20,8 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
             emit(Resource.Loading())
             when (val apiResponse = createCall().first()) {
                 is ApiResponse.Success -> {
-                    saveCallResult(apiResponse.data)
+                    responseData = apiResponse.data
+                    if (shouldSaveResult()) saveCallResult(apiResponse.data)
                     emitAll(loadFromDB().map { Resource.Success(it) })
                 }
                 is ApiResponse.Empty -> {
@@ -39,6 +42,10 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
     protected abstract fun loadFromDB(): Flow<ResultType>
 
     protected abstract fun shouldFetch(data: ResultType?): Boolean
+
+    protected abstract fun shouldSaveResult(): Boolean
+
+    protected abstract fun getResultFromResponse(): ResultType
 
     protected abstract suspend fun createCall(): Flow<ApiResponse<RequestType>>
 

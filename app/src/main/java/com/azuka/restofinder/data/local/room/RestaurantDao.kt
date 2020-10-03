@@ -22,7 +22,7 @@ interface RestaurantDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertRestaurant(restaurantEntities: List<RestaurantEntity>)
 
-    @Update
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun updateFavoriteRestaurant(restaurantEntity: RestaurantEntity)
 
     @Query("DELETE FROM restaurant WHERE isFavorite = 0 AND isTemporary = 1")
