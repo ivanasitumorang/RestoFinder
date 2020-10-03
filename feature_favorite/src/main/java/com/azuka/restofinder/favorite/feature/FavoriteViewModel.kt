@@ -22,7 +22,12 @@ class FavoriteViewModel(private val appUseCase: AppUseCase) : BaseViewModel() {
     val isFavorite: LiveData<Boolean> = _isFavorite
 
     fun getFavoriteRestaurants() {
-
+        val favoriteRestaurantsDataSource = appUseCase.getFavoriteRestaurants().asLiveData()
+        _loadingHandler.value = true
+        _favoriteRestaurants.addSource(favoriteRestaurantsDataSource) { restaurants ->
+            _favoriteRestaurants.value = restaurants
+            _loadingHandler.postValue(false)
+        }
     }
 
     fun checkIfFavoriteRestaurant(restaurantId: String?) {

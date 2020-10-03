@@ -22,31 +22,6 @@ class HomeViewModel(
     private val _searchResult = MediatorLiveData<List<Restaurant>>()
     val searchResult: LiveData<List<Restaurant>> = _searchResult
 
-    private val _isFavorite = MediatorLiveData<Boolean>()
-    val isFavorite: LiveData<Boolean> = _isFavorite
-
-    fun checkIfFavoriteRestaurant(restaurantId: String?) {
-        if (restaurantId == null) {
-            _isFavorite.value = false
-        } else {
-            _loadingHandler.value = true
-            val isFavoriteRestaurantDataSource =
-                appUseCase.checkIfFavoriteRestaurant(restaurantId).asLiveData()
-            _isFavorite.addSource(isFavoriteRestaurantDataSource) { state ->
-                _isFavorite.value = state
-                _loadingHandler.postValue(false)
-            }
-        }
-    }
-
-    fun saveToFavorite(restaurant: Restaurant) {
-        appUseCase.setFavoriteRestaurant(restaurant, true)
-    }
-
-    fun removeFromFavorite(restaurant: Restaurant) {
-        appUseCase.setFavoriteRestaurant(restaurant, false)
-    }
-
     fun searchRestaurant(query: String) {
         val searchRestaurantDataSource = appUseCase.searchRestaurant(query).asLiveData()
         _loadingHandler.value = true

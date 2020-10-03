@@ -44,6 +44,7 @@ class FavoriteListActivity : BaseActivityVM<FavoriteViewModel>() {
     }
 
     private fun setupUI() {
+        viewModel.getFavoriteRestaurants()
         adapter.setOnItemClickListener { restaurant ->
             goToScreen(Screen.detailRestaurant) {
                 putExtra(AppConstant.Home.TAG_RESTAURANT, restaurant)
