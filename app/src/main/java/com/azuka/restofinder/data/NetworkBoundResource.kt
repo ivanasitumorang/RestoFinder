@@ -1,5 +1,6 @@
 package com.azuka.restofinder.data
 
+import com.azuka.base.data.ErrorResponse
 import com.azuka.restofinder.data.remote.network.ApiResponse
 import kotlinx.coroutines.flow.*
 
@@ -29,7 +30,12 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
                 }
                 is ApiResponse.Error -> {
                     onFetchFailed()
-                    emit(Resource.Error(apiResponse.errorMessage))
+                    try {
+                        emit(Resource.Error(apiResponse.errorResponse))
+                    } catch (e: Exception) {
+                        emit(Resource.Error(ErrorResponse(exception = e)))
+                    }
+
                 }
             }
         } else {

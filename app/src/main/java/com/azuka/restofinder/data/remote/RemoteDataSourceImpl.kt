@@ -1,6 +1,7 @@
 package com.azuka.restofinder.data.remote
 
 import android.util.Log
+import com.azuka.base.data.ErrorResponse
 import com.azuka.restofinder.data.remote.network.ApiResponse
 import com.azuka.restofinder.data.remote.network.AppNetworkService
 import com.azuka.restofinder.data.remote.response.RestaurantResponse
@@ -20,7 +21,9 @@ interface RemoteDataSource {
     fun searchRestaurant(query: String): Flow<ApiResponse<List<RestaurantResponse>>>
 }
 
-class RemoteDataSourceImpl(private val networkService: AppNetworkService) : RemoteDataSource {
+class RemoteDataSourceImpl(
+    private val networkService: AppNetworkService
+) : RemoteDataSource {
 
     override fun searchRestaurant(query: String): Flow<ApiResponse<List<RestaurantResponse>>> {
         return flow {
@@ -33,12 +36,12 @@ class RemoteDataSourceImpl(private val networkService: AppNetworkService) : Remo
                         val responseBody = body() as SearchResponse
                         emit(ApiResponse.Success(responseBody.restaurants))
                     } else {
-                        emit(ApiResponse.Empty)
+                        emit(ApiResponse.Empty(code = code(), message = message()))
                     }
                 }
 
             } catch (e: Exception) {
-                emit(ApiResponse.Error(e.toString()))
+                emit(ApiResponse.Error(ErrorResponse(-1, e.message, e)))
                 Log.e("RemoteDataSource", e.toString())
             }
         }.flowOn(Dispatchers.IO)

@@ -10,4 +10,8 @@
     <string name="home_welcoming_message">Welcome to Restaurant Finder App 😄\nClick search icon above to explore the restaurants</string>
     <string name="home_item_search_vote_format">(%s)</string>
     <string name="home_item_search_price_range_format">Price %s of 4</string>
+
+    <string name="network_unavailable_message">Result is unavailable right now 😔\nPlease check your connection first</string>
+
+    <string name="search_result_empty_message">There is no result for this ☹️\nPlease try another keyword</string>
 </resources>

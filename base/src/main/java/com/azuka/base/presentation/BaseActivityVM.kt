@@ -11,8 +11,8 @@ import javax.inject.Inject
  * Created by ivanaazuka on 28/09/20.
  * Android Engineer
  */
- 
-abstract class BaseActivityVM <T : ViewModel> : BaseActivity() {
+
+abstract class BaseActivityVM<T : ViewModel> : BaseActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory

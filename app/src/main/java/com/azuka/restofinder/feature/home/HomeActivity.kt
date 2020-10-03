@@ -20,6 +20,7 @@ import com.azuka.restofinder.utils.AppConstant
 import com.azuka.restofinder.utils.Screen
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.layout_info.*
+import java.net.UnknownHostException
 
 class HomeActivity : BaseActivityVM<HomeViewModel>() {
 
@@ -52,9 +53,27 @@ class HomeActivity : BaseActivityVM<HomeViewModel>() {
     }
 
     private fun setupObserver() {
+        viewModel.errorHandler.observe(this, Observer { response ->
+            if (response.exception is UnknownHostException) {
+                val infoData = InfoData(
+                    image = R.drawable.ic_connection_error,
+                    message = getString(R.string.network_unavailable_message)
+                )
+                displayBackgroundInfo(needToShow = true, data = infoData)
+            }
+        })
+
         viewModel.searchResult.observe(this, Observer { restaurants ->
             if (restaurants.isNullOrEmpty()) {
-                displayBackgroundInfo(needToShow = true)
+                val infoData = InfoData()
+                if (restaurants == null) {
+                    infoData.image = R.drawable.ic_connection_error
+                    infoData.message = getString(R.string.network_unavailable_message)
+                } else if (restaurants.isEmpty()) {
+                    infoData.image = R.drawable.ic_no_result
+                    infoData.message = getString(R.string.search_result_empty_message)
+                }
+                displayBackgroundInfo(needToShow = true, data = infoData)
             } else {
                 adapter.submitList(restaurants)
                 displayBackgroundInfo(needToShow = false)

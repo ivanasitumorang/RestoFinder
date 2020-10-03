@@ -7,6 +7,6 @@ package com.azuka.restofinder.domain.model
  */
 
 data class InfoData(
-    val image: Int,
-    val message: String
+    var image: Int = -1,
+    var message: String = ""
 )
