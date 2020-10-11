@@ -32,10 +32,10 @@ abstract class BaseActivityVM<T : ViewModel> : BaseActivity() {
     }
 
     protected open fun showLoading() {
-        loadingDialog.show(supportFragmentManager)
+        loadingDialog.get()?.show(supportFragmentManager)
     }
 
     protected open fun hideLoading() {
-        loadingDialog.hide()
+        loadingDialog.get()?.hide()
     }
 }

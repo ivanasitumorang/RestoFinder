@@ -129,6 +129,14 @@ class HomeActivity : BaseActivityVM<HomeViewModel>() {
         displayBackgroundInfo(needToShow = true)
     }
 
+    override fun showLoading() {
+        loadingDialog.get()?.show(supportFragmentManager)
+    }
+
+    override fun hideLoading() {
+        loadingDialog.get()?.hide()
+    }
+
     override fun onBackPressed() {
         if (!searchView.isIconified) {
             searchView.onActionViewCollapsed()

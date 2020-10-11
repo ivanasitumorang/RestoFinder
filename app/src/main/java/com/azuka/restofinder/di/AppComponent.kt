@@ -5,10 +5,9 @@ import com.azuka.base.di.module.CoreModule
 import com.azuka.base.di.module.NetworkModule
 import com.azuka.base.di.module.ViewModelModule
 import com.azuka.base.external.CoroutineContextProvider
-import com.azuka.base.presentation.widget.LoadingDialog
-import com.azuka.restofinder.data.local.room.RestaurantDatabase
 import com.azuka.restofinder.data.local.LocalDataSource
 import com.azuka.restofinder.data.local.room.RestaurantDao
+import com.azuka.restofinder.data.local.room.RestaurantDatabase
 import com.azuka.restofinder.data.remote.RemoteDataSource
 import com.azuka.restofinder.di.module.AppModule
 import com.azuka.restofinder.di.module.AppNetworkModule
@@ -58,5 +57,4 @@ interface AppComponent {
     fun database(): RestaurantDatabase
     fun local(): LocalDataSource
     fun remote(): RemoteDataSource
-    fun loadingDialog(): LoadingDialog
 }
