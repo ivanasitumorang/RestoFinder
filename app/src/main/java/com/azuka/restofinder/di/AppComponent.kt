@@ -44,7 +44,6 @@ interface AppComponent {
     @Component.Builder
     interface Builder {
         fun contextModule(module: ContextModule): Builder
-        fun databaseModule(module: DatabaseModule): Builder
         fun build(): AppComponent
     }
 
