@@ -25,7 +25,7 @@ abstract class BaseActivityVM<T : ViewModel> : BaseActivity() {
     }
 
     private fun setupObserver(viewModel: BaseViewModel?) {
-        viewModel?.loadingHandler?.observe(this, Observer { loading ->
+        viewModel?.loadingHandler?.observe(this, { loading ->
             if (loading) showLoading()
             else hideLoading()
         })
