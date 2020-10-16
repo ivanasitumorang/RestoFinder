@@ -1,7 +1,6 @@
 package com.azuka.base.presentation
 
 import android.os.Bundle
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.azuka.base.di.viewmodel.ViewModelFactory
 import javax.inject.Inject

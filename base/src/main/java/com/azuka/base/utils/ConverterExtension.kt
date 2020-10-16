@@ -27,6 +27,3 @@ inline fun <J, reified DC> J.convert(): DC {
     return gson.fromJson(json, object : TypeToken<DC>() {}.type)
 }
 
-inline fun <FROM, reified TO> FROM.convertDataClass(): TO {
-    return serializeToMap().toDataClass()
-}

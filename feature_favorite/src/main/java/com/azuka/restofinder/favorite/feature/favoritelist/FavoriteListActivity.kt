@@ -38,7 +38,7 @@ class FavoriteListActivity : BaseActivityVM<FavoriteViewModel>() {
     }
 
     private fun setupObserver() {
-        viewModel.favoriteRestaurants.observe(this, Observer { restaurants ->
+        viewModel.favoriteRestaurants.observe(this, { restaurants ->
             if (restaurants.isNullOrEmpty()) {
                 displayBackgroundInfo(true)
             } else {

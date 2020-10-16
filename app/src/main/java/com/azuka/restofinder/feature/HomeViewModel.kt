@@ -3,7 +3,6 @@ package com.azuka.restofinder.feature
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.asLiveData
-import com.azuka.base.data.ErrorResponse
 import com.azuka.base.presentation.BaseViewModel
 import com.azuka.restofinder.data.Resource
 import com.azuka.restofinder.domain.model.Restaurant

@@ -53,7 +53,7 @@ class HomeActivity : BaseActivityVM<HomeViewModel>() {
     }
 
     private fun setupObserver() {
-        viewModel.errorHandler.observe(this, Observer { response ->
+        viewModel.errorHandler.observe(this, { response ->
             if (response.exception is UnknownHostException) {
                 val infoData = InfoData(
                     image = R.drawable.ic_connection_error,
@@ -63,7 +63,7 @@ class HomeActivity : BaseActivityVM<HomeViewModel>() {
             }
         })
 
-        viewModel.searchResult.observe(this, Observer { restaurants ->
+        viewModel.searchResult.observe(this, { restaurants ->
             if (restaurants.isNullOrEmpty()) {
                 val infoData = InfoData()
                 if (restaurants == null) {
