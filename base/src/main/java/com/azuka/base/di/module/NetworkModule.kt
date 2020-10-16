@@ -1,36 +1,40 @@
 package com.azuka.base.di.module
 
+import android.content.Context
 import com.azuka.base.BuildConfig
+import com.azuka.base.external.SSLCertificateConfigurator
 import dagger.Module
 import dagger.Provides
-import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
+import javax.net.ssl.X509TrustManager
 
 
 @Module
 class NetworkModule {
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient {
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.N) {
-            val hostname = BuildConfig.HOSTNAME_ZOMATO
-            val certificatePinner = CertificatePinner.Builder()
-                .add(hostname, "sha256/lGNjVqZScC7++/hJnnyRE8K+qhJ2aDt8gE7uh+9Hitk=")
-                .build()
-            return OkHttpClient.Builder()
-                .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-                .writeTimeout(60, TimeUnit.SECONDS)
-                .readTimeout(60, TimeUnit.SECONDS)
-                .certificatePinner(certificatePinner)
-                .connectTimeout(60, TimeUnit.SECONDS)
-                .build()
+    fun provideOkHttpClient(context: Context): OkHttpClient {
+        val trustManagerFactory = SSLCertificateConfigurator.getTrustManager(context)
+        val trustManagers = trustManagerFactory.trustManagers
+        if (trustManagers.size != 1 || trustManagers[0] !is X509TrustManager) {
+            throw IllegalStateException(
+                "Unexpected default trust managers:" + Arrays.toString(
+                    trustManagers
+                )
+            )
         }
+        val trustManager = trustManagers[0] as X509TrustManager
         return OkHttpClient.Builder()
+            .sslSocketFactory(
+                SSLCertificateConfigurator.getSSLConfiguration(context).socketFactory,
+                trustManager
+            )
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .writeTimeout(60, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS)
