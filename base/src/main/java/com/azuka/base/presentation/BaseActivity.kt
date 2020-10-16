@@ -4,18 +4,17 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.azuka.base.di.component.ShareComponent
 import com.azuka.base.presentation.widget.LoadingDialog
-import javax.inject.Inject
+import java.lang.ref.WeakReference
 
 
 /**
  * Created by ivanaazuka on 28/09/20.
  * Android Engineer
  */
- 
+
 abstract class BaseActivity : AppCompatActivity(), AbstractComponent {
 
-    @Inject
-    lateinit var loadingDialog: LoadingDialog
+    val loadingDialog: WeakReference<LoadingDialog> = WeakReference(LoadingDialog.newInstance())
 
     abstract fun getLayoutId(): Int
 

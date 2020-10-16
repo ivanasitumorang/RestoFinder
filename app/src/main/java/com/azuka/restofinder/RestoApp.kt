@@ -7,14 +7,13 @@ import androidx.multidex.MultiDex
 import com.azuka.base.di.module.ContextModule
 import com.azuka.restofinder.di.AppComponent
 import com.azuka.restofinder.di.DaggerAppComponent
-import com.azuka.restofinder.di.module.DatabaseModule
 
 
 /**
  * Created by ivanaazuka on 28/09/20.
  * Android Engineer
  */
- 
+
 class RestoApp : Application() {
 
     companion object {
@@ -38,7 +37,6 @@ class RestoApp : Application() {
     private val appComponent: AppComponent by lazy {
         DaggerAppComponent.builder()
             .contextModule(ContextModule(this))
-            .databaseModule(DatabaseModule(this))
             .build()
     }
 }

@@ -31,9 +31,9 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
                 is ApiResponse.Error -> {
                     onFetchFailed()
                     try {
-                        emit(Resource.Error(apiResponse.errorResponse))
+                        emit(Resource.Error<ResultType>(apiResponse.errorResponse))
                     } catch (e: Exception) {
-                        emit(Resource.Error(ErrorResponse(exception = e)))
+                        emit(Resource.Error<ResultType>(ErrorResponse(exception = e)))
                     }
 
                 }

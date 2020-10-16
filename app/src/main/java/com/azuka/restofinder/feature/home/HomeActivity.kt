@@ -5,8 +5,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.airbnb.lottie.LottieDrawable
 import com.azuka.base.di.component.Component
 import com.azuka.base.presentation.BaseActivityVM
 import com.azuka.base.utils.goToScreen
@@ -53,24 +53,24 @@ class HomeActivity : BaseActivityVM<HomeViewModel>() {
     }
 
     private fun setupObserver() {
-        viewModel.errorHandler.observe(this, Observer { response ->
+        viewModel.errorHandler.observe(this, { response ->
             if (response.exception is UnknownHostException) {
                 val infoData = InfoData(
-                    image = R.drawable.ic_connection_error,
+                    image = R.raw.connection_error,
                     message = getString(R.string.network_unavailable_message)
                 )
                 displayBackgroundInfo(needToShow = true, data = infoData)
             }
         })
 
-        viewModel.searchResult.observe(this, Observer { restaurants ->
+        viewModel.searchResult.observe(this, { restaurants ->
             if (restaurants.isNullOrEmpty()) {
                 val infoData = InfoData()
                 if (restaurants == null) {
-                    infoData.image = R.drawable.ic_connection_error
+                    infoData.image = R.raw.connection_error
                     infoData.message = getString(R.string.network_unavailable_message)
                 } else if (restaurants.isEmpty()) {
-                    infoData.image = R.drawable.ic_no_result
+                    infoData.image = R.raw.empty_box
                     infoData.message = getString(R.string.search_result_empty_message)
                 }
                 displayBackgroundInfo(needToShow = true, data = infoData)
@@ -83,14 +83,17 @@ class HomeActivity : BaseActivityVM<HomeViewModel>() {
 
     private fun displayBackgroundInfo(needToShow: Boolean, data: InfoData? = null) {
         if (data != null) {
-            ivImage.setImageResource(data.image)
+            lottie.setAnimation(data.image)
             tvMessage.text = data.message
         } else {
-            ivImage.setImageResource(R.drawable.ic_food_store)
+            lottie.setAnimation(R.raw.restaurant)
             tvMessage.text = getString(R.string.home_welcoming_message)
         }
-        if (needToShow) bgInfo.visibility = View.VISIBLE
-        else bgInfo.visibility = View.GONE
+        if (needToShow) {
+            lottie.playAnimation()
+            lottie.repeatCount = LottieDrawable.INFINITE
+            bgInfo.visibility = View.VISIBLE
+        } else bgInfo.visibility = View.GONE
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -127,6 +130,14 @@ class HomeActivity : BaseActivityVM<HomeViewModel>() {
     private fun clearSearchResult() {
         adapter.submitList(emptyList())
         displayBackgroundInfo(needToShow = true)
+    }
+
+    override fun showLoading() {
+        loadingDialog.get()?.show(supportFragmentManager)
+    }
+
+    override fun hideLoading() {
+        loadingDialog.get()?.hide()
     }
 
     override fun onBackPressed() {

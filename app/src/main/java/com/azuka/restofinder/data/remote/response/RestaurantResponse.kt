@@ -1,12 +1,14 @@
 package com.azuka.restofinder.data.remote.response
 
-import com.azuka.base.data.BaseResponse
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class RestaurantResponse(
     val restaurant: RestaurantObjectResponse
-) : BaseResponse
+)
 
+@Keep
 data class RestaurantObjectResponse(
     val id: String,
     val name: String,
@@ -17,11 +19,12 @@ data class RestaurantObjectResponse(
     @SerializedName("price_range") val priceRange: String,
     @SerializedName("featured_image") val featuredImage: String,
     @SerializedName("user_rating") val userRating: UserRatingResponse
-) : BaseResponse
+)
 
+@Keep
 data class UserRatingResponse(
     val votes: String,
     @SerializedName("aggregate_rating") val rating: String,
     @SerializedName("rating_text") val ratingText: String,
     @SerializedName("rating_color") val ratingColor: String
-) : BaseResponse
+)

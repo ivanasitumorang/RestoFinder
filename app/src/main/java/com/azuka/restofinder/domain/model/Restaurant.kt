@@ -1,8 +1,6 @@
 package com.azuka.restofinder.domain.model
 
 import android.os.Parcelable
-import com.azuka.restofinder.data.remote.response.UserRatingResponse
-import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 

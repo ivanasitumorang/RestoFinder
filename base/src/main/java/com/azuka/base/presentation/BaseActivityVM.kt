@@ -1,7 +1,6 @@
 package com.azuka.base.presentation
 
 import android.os.Bundle
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.azuka.base.di.viewmodel.ViewModelFactory
 import javax.inject.Inject
@@ -25,17 +24,17 @@ abstract class BaseActivityVM<T : ViewModel> : BaseActivity() {
     }
 
     private fun setupObserver(viewModel: BaseViewModel?) {
-        viewModel?.loadingHandler?.observe(this, Observer { loading ->
+        viewModel?.loadingHandler?.observe(this, { loading ->
             if (loading) showLoading()
             else hideLoading()
         })
     }
 
     protected open fun showLoading() {
-        loadingDialog.show(supportFragmentManager)
+        loadingDialog.get()?.show(supportFragmentManager)
     }
 
     protected open fun hideLoading() {
-        loadingDialog.hide()
+        loadingDialog.get()?.hide()
     }
 }

@@ -1,6 +1,5 @@
 package com.azuka.restofinder.di.module
 
-import com.azuka.base.presentation.widget.LoadingDialog
 import com.azuka.restofinder.domain.repository.AppRepository
 import com.azuka.restofinder.domain.usecase.AppUseCase
 import com.azuka.restofinder.domain.usecase.AppUseCaseImpl
@@ -20,10 +19,6 @@ class AppModule {
     @Singleton
     @Provides
     fun provideGson() = Gson()
-
-    @Singleton
-    @Provides
-    fun provideLoadingDialog(): LoadingDialog = LoadingDialog.newInstance()
 
     @Singleton
     @Provides

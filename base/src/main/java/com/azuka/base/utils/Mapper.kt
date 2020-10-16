@@ -14,8 +14,6 @@ abstract class Mapper<Entity, Domain, Response> {
         }
 
     abstract fun mapDomainToEntity(dto: Domain): Entity
-    fun mapDomainsToEntities(dtos: List<Domain>): List<Entity> =
-        dtos.map { dto -> mapDomainToEntity(dto) }
 
     abstract fun mapResponseToEntity(response: Response): Entity
     fun mapResponsesToEntities(responses: List<Response>): List<Entity> =

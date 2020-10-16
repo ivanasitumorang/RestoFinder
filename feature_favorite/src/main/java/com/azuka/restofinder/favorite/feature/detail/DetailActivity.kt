@@ -51,7 +51,7 @@ class DetailActivity : BaseActivityVM<FavoriteViewModel>() {
     }
 
     private fun observeFavorite() {
-        viewModel.isFavorite.observe(this, Observer { isFavorite ->
+        viewModel.isFavorite.observe(this, { isFavorite ->
             isRestaurantFavorite = isFavorite
             if (::btnFavorite.isInitialized) {
                 setFavoriteIcon(isFavorite)
