@@ -63,6 +63,6 @@ dependencies {
     implementation "net.zetetic:android-database-sqlcipher:4.4.0"
     implementation "androidx.sqlite:sqlite-ktx:2.1.0"
 
-    api "com.airbnb.android:lottie:2.8.0"
+    implementation "com.airbnb.android:lottie:3.4.4"
 
 }
