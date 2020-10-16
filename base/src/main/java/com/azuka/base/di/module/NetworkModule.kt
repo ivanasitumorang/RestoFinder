@@ -1,7 +1,9 @@
 package com.azuka.base.di.module
 
+import com.azuka.base.BuildConfig
 import dagger.Module
 import dagger.Provides
+import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -15,6 +17,19 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.N) {
+            val hostname = BuildConfig.HOSTNAME_ZOMATO
+            val certificatePinner = CertificatePinner.Builder()
+                .add(hostname, "sha256/lGNjVqZScC7++/hJnnyRE8K+qhJ2aDt8gE7uh+9Hitk=")
+                .build()
+            return OkHttpClient.Builder()
+                .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .certificatePinner(certificatePinner)
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .build()
+        }
         return OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .writeTimeout(60, TimeUnit.SECONDS)
@@ -27,7 +42,7 @@ class NetworkModule {
     @Singleton
     fun provideApiService(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://developers.zomato.com/api/v2.1/")
+            .baseUrl(BuildConfig.BASE_URL_ZOMATO)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
